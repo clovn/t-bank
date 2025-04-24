@@ -35,10 +35,15 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                         is LoginState.Success -> {
                             findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
                         }
-                        is LoginState.Error -> {
-                            showToast(state.message)
-                        }
                     }
+                }
+            }
+        }
+
+        lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+                loginViewModel.errorFlow.collect { error ->
+                    showToast(error)
                 }
             }
         }
@@ -51,7 +56,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             registerLink.setOnClickListener{
                 findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
             }
-
         }
 
     }

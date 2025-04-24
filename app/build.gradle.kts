@@ -48,8 +48,6 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
-    implementation(libs.testng)
-    testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
@@ -60,7 +58,6 @@ dependencies {
 
     implementation(libs.retrofit)
     implementation (libs.converter.gson)
-    implementation(libs.mockk)
 
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
