@@ -1,7 +1,7 @@
-package com.example.t_bank.di
+package com.example.tbank.di
 
-import com.example.t_bank.data.repository.mock.UserRepositoryMockImpl
-import com.example.t_bank.domain.repository.UserRepository
+import com.example.tbank.data.repository.mock.UserRepositoryMockImpl
+import com.example.tbank.domain.repository.UserRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

@@ -1,12 +1,13 @@
-package com.example.t_bank.presentation.login
+package com.example.tbank.presentation.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.t_bank.domain.login.LoginUseCase
+import com.example.tbank.domain.login.LoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -29,13 +30,19 @@ class LoginViewModel @Inject constructor(
     fun login(login: String, password: String){
         viewModelScope.launch {
             runCatching {
-                _uiState.value = LoginState.Loading
+                _uiState.update {
+                    LoginState.Loading
+                }
                 loginUseCase.invoke(login, password)
             }.onSuccess {
-                _uiState.value = LoginState.Success
+                _uiState.update {
+                    LoginState.Success
+                }
             }.onFailure {
                 _errorFlow.emit(it.message ?: "Ошибка")
-                _uiState.value = LoginState.Empty
+                _uiState.update {
+                    LoginState.Empty
+                }
             }
         }
     }

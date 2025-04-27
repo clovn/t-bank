@@ -1,5 +1,6 @@
-package com.example.t_bank.presentation.login
+package com.example.tbank.presentation.login
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -9,8 +10,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import com.example.t_bank.R
-import com.example.t_bank.databinding.FragmentLoginBinding
+import com.example.tbank.R
+import com.example.tbank.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
 import dev.androidbroadcast.vbpd.viewBinding
 import kotlinx.coroutines.launch
@@ -57,6 +58,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
             }
         }
+
 
     }
 

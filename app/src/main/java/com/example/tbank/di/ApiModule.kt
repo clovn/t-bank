@@ -1,6 +1,6 @@
-package com.example.t_bank.di
+package com.example.tbank.di
 
-import com.example.t_bank.data.remote.UserApiService
+import com.example.tbank.data.remote.UserApiService
 
 import dagger.Module
 import dagger.Provides

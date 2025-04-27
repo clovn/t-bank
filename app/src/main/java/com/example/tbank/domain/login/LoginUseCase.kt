@@ -1,7 +1,7 @@
-package com.example.t_bank.domain.login
+package com.example.tbank.domain.login
 
-import com.example.t_bank.domain.model.LoginRequest
-import com.example.t_bank.domain.repository.UserRepository
+import com.example.tbank.data.model.LoginRequest
+import com.example.tbank.domain.repository.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
