@@ -1,4 +1,4 @@
-package com.example.t_bank
+package com.example.tbank
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
