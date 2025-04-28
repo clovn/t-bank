@@ -8,4 +8,15 @@
     <string name="no_account">Нет аккаунта? Зарегистрируйтесь</string>
     <string name="hint_login">Логин</string>
     <string name="login_title">Вход</string>
+    <string name="registration_title">Регистрация</string>
+    <string name="hint_username">Имя</string>
+    <string name="hint_confirm_password">Подтверждение пароля</string>
+    <string name="register">Зарегистрируйтесь</string>
+    <string name="create_trip_title">Создание поездки</string>
+    <string name="next">Далее</string>
+    <string name="name_hint">Название</string>
+    <string name="budget_hint">Бюджет</string>
+    <string name="start_date_hint">Дата начала</string>
+    <string name="date_format_hint">MM/DD/YYYY</string>
+    <string name="done">Готово</string>
 </resources>

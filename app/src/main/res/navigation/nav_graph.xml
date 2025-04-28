@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.t_bank.presentation.login.LoginFragment"
+        android:name="com.example.tbank.presentation.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -19,12 +19,12 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.t_bank.presentation.register.RegisterFragment"
+        android:name="com.example.tbank.presentation.register.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" />
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.example.t_bank.presentation.main.MainFragment"
+        android:name="com.example.tbank.presentation.main.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" />
 </navigation>
