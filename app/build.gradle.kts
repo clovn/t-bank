@@ -3,14 +3,15 @@ plugins {
     alias(libs.plugins.kotlin.android)
     id("com.google.devtools.ksp")
     id("com.google.dagger.hilt.android")
+    id("io.gitlab.arturbosch.detekt")
 }
 
 android {
-    namespace = "com.example.t_bank"
+    namespace = "com.example.tbank"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.t_bank"
+        applicationId = "com.example.tbank"
         minSdk = 26
         targetSdk = 35
         versionCode = 1
@@ -39,6 +40,12 @@ android {
     viewBinding{
         enable = true
     }
+}
+
+detekt {
+    toolVersion = "1.23.8"
+    config.setFrom(file("config/detekt/detekt.yml"))
+    buildUponDefaultConfig = true
 }
 
 dependencies {
