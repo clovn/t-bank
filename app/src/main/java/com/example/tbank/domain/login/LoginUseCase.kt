@@ -1,6 +1,5 @@
 package com.example.tbank.domain.login
 
-import com.example.tbank.data.model.LoginRequest
 import com.example.tbank.domain.repository.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -12,7 +11,7 @@ class LoginUseCase @Inject constructor(
 
     suspend fun invoke(login: String, password: String){
         withContext(Dispatchers.IO){
-            userRepository.login(LoginRequest(login, password))
+            userRepository.login(login, password)
         }
     }
 }
