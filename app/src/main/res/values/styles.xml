@@ -43,4 +43,10 @@
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:includeFontPadding">false</item>
     </style>
+    <style name="ErrorText">
+        <item name="android:textColor">@color/red</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
 </resources>

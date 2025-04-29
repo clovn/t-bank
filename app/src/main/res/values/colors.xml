@@ -14,4 +14,5 @@
     <color name="link_color">#428BF9</color>
     <color name="background">#F9F9F9</color>
     <color name="chart_background">#F4F4F4</color>
+    <color name="red">#FFFF0000</color>
 </resources>
