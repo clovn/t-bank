@@ -12,6 +12,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.tbank.R
 import com.example.tbank.databinding.FragmentLoginBinding
+import com.example.tbank.presentation.showError
 import dagger.hilt.android.AndroidEntryPoint
 import dev.androidbroadcast.vbpd.viewBinding
 import kotlinx.coroutines.launch
@@ -23,6 +24,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initViews()
+
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
                 loginViewModel.uiState.collect { state ->
@@ -39,16 +42,16 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                     }
                 }
             }
-        }
 
-        lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
                 loginViewModel.errorFlow.collect { error ->
-                    showToast(error)
+                    showError(error)
                 }
             }
         }
+    }
 
+    private fun initViews(){
         binding.apply {
             loginBtn.setOnClickListener {
                 loginViewModel.login(login = loginEt.text.toString(), password = passwordEt.text.toString())
@@ -58,11 +61,5 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
             }
         }
-
-
-    }
-
-    private fun showToast(text: String){
-        Toast.makeText(requireContext(), text, Toast.LENGTH_LONG).show()
     }
 }

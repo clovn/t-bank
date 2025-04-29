@@ -1,0 +1,37 @@
+package com.example.tbank.data.model
+
+import com.squareup.moshi.Moshi
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.withContext
+import retrofit2.HttpException
+import java.io.IOException
+
+sealed class ResultWrapper<out T> {
+    data class Success<out T>(val value: T): ResultWrapper<T>()
+    data class Error(val message: String?): ResultWrapper<Nothing>()
+}
+
+suspend fun <T> safeApiCall(dispatcher: CoroutineDispatcher, apiCall: suspend () -> T): ResultWrapper<T> {
+    return withContext(dispatcher) {
+        try {
+            ResultWrapper.Success(apiCall.invoke())
+        } catch (throwable: Throwable) {
+            when (throwable) {
+                is IOException -> ResultWrapper.Error("Проблемы с интернетом")
+                is HttpException -> { ResultWrapper.Error(convertErrorBody(throwable)) }
+                else -> ResultWrapper.Error("Неизвестная ошибка")
+            }
+        }
+    }
+}
+
+private fun convertErrorBody(throwable: HttpException): String? {
+    return try {
+        throwable.response()?.errorBody()?.source()?.let {
+            val moshiAdapter = Moshi.Builder().build().adapter(String::class.java)
+            moshiAdapter.fromJson(it)
+        }
+    } catch (exception: Exception) {
+        null
+    }
+}

@@ -1,4 +1,4 @@
-package com.example.tbank.data.model
+package com.example.tbank.domain.model
 
 data class User(
     val id: Int,
