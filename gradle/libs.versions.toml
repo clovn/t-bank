@@ -10,6 +10,7 @@ espressoCore = "3.5.1"
 appcompat = "1.6.1"
 material = "1.10.0"
 mockk = "1.13.5"
+moshi = "1.15.2"
 navigationUi = "2.8.9"
 retrofit = "2.11.0"
 roomRuntime = "2.7.1"
@@ -35,6 +36,7 @@ androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-co
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+moshi = { module = "com.squareup.moshi:moshi", version.ref = "moshi" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 vbpd = { module = "dev.androidbroadcast.vbpd:vbpd", version.ref = "vbpd" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
