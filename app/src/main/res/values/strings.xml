@@ -19,4 +19,8 @@
     <string name="start_date_hint">Дата начала</string>
     <string name="date_format_hint">MM/DD/YYYY</string>
     <string name="done">Готово</string>
+    <string name="name_placeholder">John Doe</string>
+    <string name="number_placeholder">+79999999999</string>
+    <string name="add_expenses">Добавьте расходы</string>
+    <string name="expenses">Траты</string>
 </resources>

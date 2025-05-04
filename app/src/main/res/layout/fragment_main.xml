@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".presentation.main.MainFragment"
+    android:background="@color/background">
+
+   <TextView
+       android:id="@+id/nameTv"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintStart_toStartOf="parent"
+       android:layout_marginTop="16dp"
+       android:layout_marginStart="16dp"
+       android:text="@string/name_placeholder"
+       style="@style/TitleText" />
+
+    <TextView
+        android:id="@+id/numberTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="16dp"
+        android:text="@string/number_placeholder"
+        app:layout_constraintTop_toBottomOf="@id/nameTv"
+        style="@style/LightText"/>
+
+    <ImageButton
+        android:id="@+id/notificationBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_notifications"
+        android:backgroundTint="@color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/tripInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/numberTv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/corner_background"
+        android:elevation="16dp"
+        android:layout_marginHorizontal="16dp">
+
+        <TextView
+            android:id="@+id/tripNameTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            style="@style/ScreenTitleText"
+            android:text="Название поездки"/>
+
+        <TextView
+            android:id="@+id/tripDateTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tripNameTv"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            style="@style/HintText"
+            android:text="22.07 - 30.07" />
+
+        <ImageView
+            android:id="@+id/tripPeopleCountIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/tripDateTv"
+            app:layout_constraintTop_toBottomOf="@id/tripNameTv"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:src="@drawable/ic_account" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/HintText"
+            app:layout_constraintTop_toBottomOf="@id/tripNameTv"
+            app:layout_constraintStart_toEndOf="@id/tripPeopleCountIv"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="4dp"
+            android:text="4"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tripDateTv"
+            app:layout_constraintStart_toStartOf="parent"
+            style="@style/ScreenTitleText"
+            android:layout_margin="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="1 000 000 ₽"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/tripExpenses"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tripInfo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="16dp"
+        android:elevation="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/corner_background">
+
+        <TextView
+            android:id="@+id/tripExpensesTv"
+            style="@style/ScreenTitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/expenses"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/expenseTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            style="@style/ScreenTitleText"
+            android:text="453 345 ₽"/>
+
+        <com.example.tbank.presentation.customView.ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            app:layout_constraintTop_toBottomOf="@id/tripExpensesTv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginHorizontal="16dp"
+            app:progress="50"
+            android:layout_marginVertical="16dp"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/addExpenses"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tripExpenses"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:elevation="16dp"
+        android:background="@drawable/corner_background"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/addExpensesBtn"
+            style="@style/ScreenTitleText"
+            android:text="@string/add_expenses"/>
+
+        <ImageButton
+            android:id="@+id/addExpensesBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@color/transparent"
+            android:src="@drawable/ic_arrow"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
