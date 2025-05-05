@@ -1,12 +1,10 @@
 package com.example.tbank.data.model
 
-import com.example.tbank.domain.model.User
 import com.google.gson.annotations.SerializedName
 
-data class LoginResponse(
+data class TokenResponse(
     @SerializedName("access_token")
     val accessToken: String,
     @SerializedName("refresh_token")
-    val refreshToken: String,
-    val user: User
+    val refreshToken: String
 )
