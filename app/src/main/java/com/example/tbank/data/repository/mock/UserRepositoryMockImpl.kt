@@ -10,7 +10,7 @@ import javax.inject.Inject
 class UserRepositoryMockImpl @Inject constructor(): UserRepository {
     override suspend fun login(login: String, password: String): ResultWrapper<LoginResponse> {
         val loginRequest = LoginRequest(login, password)
-        if(loginRequest.equals(LoginRequest("admin", "password"))){
+        if(loginRequest == LoginRequest("admin", "password")){
             return ResultWrapper.Success(LoginResponse(
                 token = "wadawd",
                 user = User(

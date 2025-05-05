@@ -11,7 +11,7 @@
     <string name="registration_title">Регистрация</string>
     <string name="hint_username">Имя</string>
     <string name="hint_confirm_password">Подтверждение пароля</string>
-    <string name="register">Зарегистрируйтесь</string>
+    <string name="register">Зарегистрироваться</string>
     <string name="create_trip_title">Создание поездки</string>
     <string name="next">Далее</string>
     <string name="name_hint">Название</string>
@@ -19,6 +19,11 @@
     <string name="start_date_hint">Дата начала</string>
     <string name="date_format_hint">MM/DD/YYYY</string>
     <string name="done">Готово</string>
+    <string name="last_name_hint">Фамилия</string>
+    <string name="name_error_hint">Длина от 3 до 20 символов</string>
+    <string name="password_error_hint">от 8 символов, заглавные и строчные буквы, цифры</string>
+    <string name="confirm_password_error_hint">Пароли не совпадают</string>
+    <string name="number_error_hint">Введите номер в формате 7XXXXXXXXXX или 8XXXXXXXXXX.</string>
     <string name="name_placeholder">John Doe</string>
     <string name="number_placeholder">+79999999999</string>
     <string name="add_expenses">Добавьте расходы</string>
