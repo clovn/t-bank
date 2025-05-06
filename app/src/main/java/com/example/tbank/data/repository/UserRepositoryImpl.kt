@@ -6,6 +6,7 @@ import com.example.tbank.data.model.LoginResponse
 import com.example.tbank.data.model.RegisterRequest
 import com.example.tbank.data.model.ResultWrapper
 import com.example.tbank.data.model.safeApiCall
+import com.example.tbank.domain.model.User
 import com.example.tbank.domain.repository.UserRepository
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
@@ -25,6 +26,10 @@ class UserRepositoryImpl @Inject constructor(
         password: String
     ) = safeApiCall(Dispatchers.IO) {
         userApiService.register(RegisterRequest(username, firstName, lastName, number, password))
+    }
+
+    override suspend fun getUser() = safeApiCall(Dispatchers.IO) {
+        userApiService.getUser()
     }
 
 }

@@ -35,4 +35,16 @@ class UserRepositoryMockImpl @Inject constructor(): UserRepository {
     ): ResultWrapper<LoginResponse> {
         return ResultWrapper.Success(LoginResponse(token = "wdadawd", user = User(id = 1, username = username, firstName = firstName, lastName = lastName, number = number)))
     }
+
+    override suspend fun getUser(): ResultWrapper<User> {
+        return ResultWrapper.Success(
+            value = User(
+                id = 0,
+                username = "Clovn",
+                firstName = "Айрат",
+                lastName = "Халиуллин",
+                number = "+79999999999"
+            )
+        )
+    }
 }
