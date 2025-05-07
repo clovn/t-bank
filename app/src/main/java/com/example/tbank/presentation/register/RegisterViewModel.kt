@@ -6,6 +6,8 @@ import com.example.tbank.data.model.ResultWrapper
 import com.example.tbank.domain.model.User
 import com.example.tbank.domain.register.RegisterUseCase
 import com.example.tbank.domain.validation.ValidationManager
+import com.example.tbank.presentation.model.FieldState
+import com.example.tbank.presentation.model.RegisterFormState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,25 +19,9 @@ import javax.inject.Inject
 
 sealed class RegisterState {
     data object Idle: RegisterState()
-
     data object Loading: RegisterState()
     data object Success: RegisterState()
 }
-
-data class FieldState(
-    val value: String = "",
-    val isValid: Boolean = true
-)
-
-data class RegisterFormState(
-    val loginState: FieldState = FieldState(),
-    val firstNameState: FieldState = FieldState(),
-    val lastNameState: FieldState = FieldState(),
-    val passwordState: FieldState = FieldState(),
-    val numberState: FieldState = FieldState(),
-    val confirmPasswordState: FieldState = FieldState(),
-    val isRegisterBtnActive: Boolean = false
-)
 
 @HiltViewModel
 class RegisterViewModel @Inject constructor(

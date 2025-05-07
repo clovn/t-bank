@@ -16,7 +16,9 @@ class TokensRepositoryImpl @Inject constructor(
     @ApplicationContext private val context: Context
 ) : TokensRepository {
 
-    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "tokens_prefs")
+    c
+
+    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = PREFS_NAME)
 
     override suspend fun getAccessToken() = context.dataStore.data.map {
         preferences -> preferences[ACCESS_TOKEN_KEY]
@@ -52,5 +54,6 @@ class TokensRepositoryImpl @Inject constructor(
     companion object {
         private val ACCESS_TOKEN_KEY = stringPreferencesKey("access_token")
         private val REFRESH_TOKEN_KEY = stringPreferencesKey("refresh_token")
+        private const val PREFS_NAME = "token_prefs"
     }
 }
