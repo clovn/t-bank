@@ -6,5 +6,5 @@ import javax.inject.Inject
 class GetTripInfoUseCase @Inject constructor(
     private val tripRepository: TripRepository
 ) {
-    suspend fun invoke() = tripRepository.getActiveTrips()
+    suspend fun invoke() = tripRepository.getActiveTrip()
 }

@@ -1,11 +1,11 @@
 package com.example.tbank.domain.model
 
-import java.time.LocalDateTime
+import java.time.LocalDate
 
 data class Trip(
     val id: Long,
-    val startDate: LocalDateTime,
-    val endDate: LocalDateTime,
+    val startDate: LocalDate,
+    val endDate: LocalDate,
     val name: String,
     val participantsCount: Int,
     val budget: Int

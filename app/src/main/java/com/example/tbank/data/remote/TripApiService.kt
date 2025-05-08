@@ -5,5 +5,5 @@ import retrofit2.http.GET
 
 interface TripApiService {
     @GET("/trip?status=ACTIVE")
-    suspend fun getActiveTrips(): List<Trip>
+    suspend fun getActiveTrips(): List<Trip?>
 }

@@ -8,18 +8,23 @@ import com.example.tbank.domain.repository.UserRepository
 import javax.inject.Inject
 
 class UserRepositoryMockImpl @Inject constructor(): UserRepository {
+
+    companion object {
+        private val user = User(
+            id = 0,
+            username = "Clovn",
+            firstName = "Айрат",
+            lastName = "Халиуллин",
+            number = "79999999999"
+        )
+    }
+
     override suspend fun login(login: String, password: String): ResultWrapper<LoginResponse> {
         val loginRequest = LoginRequest(login, password)
         if(loginRequest == LoginRequest("admin", "password")){
             return ResultWrapper.Success(LoginResponse(
                 token = "wadawd",
-                user = User(
-                    id = 0,
-                    username = "awdawd",
-                    firstName = "awdadw",
-                    lastName = "awdwa",
-                    number = "+79999999999"
-                )
+                user = user
             ))
         } else {
             error("Неверный логин или пароль")
@@ -38,13 +43,7 @@ class UserRepositoryMockImpl @Inject constructor(): UserRepository {
 
     override suspend fun getUser(): ResultWrapper<User> {
         return ResultWrapper.Success(
-            value = User(
-                id = 0,
-                username = "Clovn",
-                firstName = "Айрат",
-                lastName = "Халиуллин",
-                number = "+79999999999"
-            )
+            value = user
         )
     }
 }

@@ -9,6 +9,10 @@ import androidx.lifecycle.repeatOnLifecycle
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+import java.text.NumberFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 fun Fragment.showError(text: String){
     Toast.makeText(requireContext(), text, Toast.LENGTH_LONG).show()
@@ -26,4 +30,17 @@ inline fun <T> Flow<T>.observe(
             }
         }
     }
+}
+
+fun dateFormat(date: LocalDate): String {
+    val formatter = DateTimeFormatter.ofPattern("dd.MM")
+
+    return date.format(formatter)
+}
+
+fun formatMoney(amount: Int): String {
+    val formatter = NumberFormat.getNumberInstance(Locale("ru", "RU"))
+    formatter.isGroupingUsed = true
+
+    return "${formatter.format(amount)} ₽"
 }
