@@ -3,11 +3,13 @@ package com.example.tbank.domain.register
 import com.example.tbank.data.model.LoginResponse
 import com.example.tbank.data.model.ResultWrapper
 import com.example.tbank.domain.model.User
-import com.example.tbank.domain.repository.UserRepository
+import com.example.tbank.domain.repository.TokensRepository
+import com.example.tbank.domain.repository.AuthRepository
 import javax.inject.Inject
 
 class RegisterUseCase @Inject constructor(
-    private val userRepository: UserRepository
+    private val authRepository: AuthRepository,
+    private val tokensRepository: TokensRepository
 ) {
 
     suspend fun invoke(
@@ -17,14 +19,18 @@ class RegisterUseCase @Inject constructor(
         number: String,
         password: String
     ): ResultWrapper<User> {
-        val result = userRepository.register(username, firstName, lastName, normalizePhoneNumber(number), password)
+        val result = authRepository.register(username, firstName, lastName, normalizePhoneNumber(number), password)
         return when(result){
             is ResultWrapper.Success<LoginResponse> -> {
-                //save token
-                val token = result.value.token
+                tokensRepository.saveAccessToken(result.value.accessToken)
+                tokensRepository.saveRefreshToken(result.value.refreshToken)
+
                 ResultWrapper.Success(result.value.user)
             }
             is ResultWrapper.Error -> {
+                result
+            }
+            is ResultWrapper.HttpError -> {
                 result
             }
         }

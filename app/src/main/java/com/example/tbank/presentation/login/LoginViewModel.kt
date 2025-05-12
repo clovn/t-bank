@@ -39,6 +39,10 @@ class LoginViewModel @Inject constructor(
                     _errorFlow.emit(result.message ?: "Неизвестная ошибка")
                     _uiState.update { LoginState.Empty }
                 }
+                is ResultWrapper.HttpError -> {
+                    _errorFlow.emit("${result.message} (${result.code})")
+                    _uiState.update { LoginState.Empty }
+                }
             }
         }
     }

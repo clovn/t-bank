@@ -9,6 +9,7 @@ import java.io.IOException
 sealed class ResultWrapper<out T> {
     data class Success<out T>(val value: T): ResultWrapper<T>()
     data class Error(val message: String?): ResultWrapper<Nothing>()
+    data class HttpError(val message: String?, val code: Int): ResultWrapper<Nothing>()
 }
 
 suspend fun <T> safeApiCall(dispatcher: CoroutineDispatcher, apiCall: suspend () -> T): ResultWrapper<T> {
@@ -18,7 +19,7 @@ suspend fun <T> safeApiCall(dispatcher: CoroutineDispatcher, apiCall: suspend ()
         } catch (throwable: Throwable) {
             when (throwable) {
                 is IOException -> ResultWrapper.Error("Проблемы с интернетом")
-                is HttpException -> { ResultWrapper.Error(convertErrorBody(throwable)) }
+                is HttpException -> { ResultWrapper.HttpError(convertErrorBody(throwable), throwable.code()) }
                 else -> ResultWrapper.Error("Неизвестная ошибка")
             }
         }

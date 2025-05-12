@@ -6,6 +6,8 @@ import com.example.tbank.data.model.ResultWrapper
 import com.example.tbank.domain.model.User
 import com.example.tbank.domain.register.RegisterUseCase
 import com.example.tbank.domain.validation.ValidationManager
+import com.example.tbank.presentation.model.FieldState
+import com.example.tbank.presentation.model.RegisterFormState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,25 +19,9 @@ import javax.inject.Inject
 
 sealed class RegisterState {
     data object Idle: RegisterState()
-
     data object Loading: RegisterState()
     data object Success: RegisterState()
 }
-
-data class FieldState(
-    val value: String = "",
-    val isValid: Boolean = true
-)
-
-data class RegisterFormState(
-    val loginState: FieldState = FieldState(),
-    val firstNameState: FieldState = FieldState(),
-    val lastNameState: FieldState = FieldState(),
-    val passwordState: FieldState = FieldState(),
-    val numberState: FieldState = FieldState(),
-    val confirmPasswordState: FieldState = FieldState(),
-    val isRegisterBtnActive: Boolean = false
-)
 
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
@@ -57,11 +43,22 @@ class RegisterViewModel @Inject constructor(
             _uiState.update { RegisterState.Loading }
 
             val currentState = _formState.value
-            val result = registerUseCase.invoke(currentState.loginState.value, currentState.firstNameState.value, currentState.lastNameState.value, currentState.numberState.value, currentState.passwordState.value)
+            val result = registerUseCase.invoke(
+                currentState.loginState.value,
+                currentState.firstNameState.value,
+                currentState.lastNameState.value,
+                currentState.numberState.value,
+                currentState.passwordState.value
+            )
+
             when(result) {
                 is ResultWrapper.Success<User> -> _uiState.update { RegisterState.Success }
                 is ResultWrapper.Error -> {
                     _errorFlow.emit(result.message ?: "Неизвестная ошибка")
+                    _uiState.update { RegisterState.Idle }
+                }
+                is ResultWrapper.HttpError -> {
+                    _errorFlow.emit("${result.message} (${result.code})")
                     _uiState.update { RegisterState.Idle }
                 }
             }
@@ -69,29 +66,42 @@ class RegisterViewModel @Inject constructor(
     }
 
     fun onLoginChanged(login: String) {
-        updateFieldAndValidate { copy(loginState = FieldState(login, validationManager.isValidLogin(login))) }
+        updateFieldAndValidate {
+            copy(loginState = FieldState(login, validationManager.isValidLogin(login)))
+        }
     }
 
     fun onFirstNameChanged(firstName: String) {
-        updateFieldAndValidate { copy(firstNameState = FieldState(firstName, validationManager.isValidName(firstName))) }
+        updateFieldAndValidate {
+            copy(firstNameState = FieldState(firstName, validationManager.isValidName(firstName)))
+        }
     }
 
     fun onLastNameChanged(lastName: String) {
-        updateFieldAndValidate { copy(lastNameState = FieldState(lastName, validationManager.isValidName(lastName))) }
+        updateFieldAndValidate {
+            copy(lastNameState = FieldState(lastName, validationManager.isValidName(lastName)))
+        }
     }
 
     fun onPasswordChanged(password: String) {
-        updateFieldAndValidate { copy(passwordState = FieldState(password, validationManager.isValidPassword(password))) }
+        updateFieldAndValidate {
+            copy(passwordState = FieldState(password, validationManager.isValidPassword(password)))
+        }
     }
 
     fun onNumberChanged(number: String) {
-        updateFieldAndValidate { copy(numberState = FieldState(number, validationManager.isValidNumber(number))) }
+        updateFieldAndValidate {
+            copy(numberState = FieldState(number, validationManager.isValidNumber(number)))
+        }
     }
 
     fun onConfirmPasswordChanged(confirmPassword: String) {
         updateFieldAndValidate {
             copy(
-                confirmPasswordState = FieldState(confirmPassword, validationManager.arePasswordsMatching(passwordState.value, confirmPassword))
+                confirmPasswordState = FieldState(
+                    confirmPassword,
+                    validationManager.arePasswordsMatching(passwordState.value, confirmPassword)
+                )
             )
         }
     }

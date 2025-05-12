@@ -3,11 +3,19 @@ package com.example.tbank.di
 import com.example.tbank.data.remote.ExpensesApiService
 import com.example.tbank.data.remote.TripApiService
 import com.example.tbank.data.remote.UserApiService
+import com.example.tbank.data.remote.AuthApiService
+import com.example.tbank.data.remote.authenticator.TokenAuthenticator
+import com.example.tbank.data.remote.interceptor.AuthInterceptor
+import com.example.tbank.data.remote.interceptor.UnlockingInterceptor
+import com.example.tbank.data.remote.interceptor.UuidInterceptor
+import com.example.tbank.domain.repository.AuthRepository
+import com.example.tbank.domain.repository.TokensRepository
 
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.sync.Mutex
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -17,8 +25,19 @@ import retrofit2.converter.gson.GsonConverterFactory
 class ApiModule {
 
     @Provides
-    fun provideOkHttpClient(): OkHttpClient {
-        return OkHttpClient.Builder().build()
+    fun provideOkHttpClient(authRepository: AuthRepository, tokensRepository: TokensRepository): OkHttpClient {
+        val mutex = Mutex()
+        return OkHttpClient.Builder()
+            .addInterceptor(AuthInterceptor(tokensRepository))
+            .addInterceptor(UuidInterceptor())
+            .authenticator(
+                TokenAuthenticator(
+                    authRepository,
+                    mutex,
+                )
+            )
+            .addInterceptor(UnlockingInterceptor(mutex))
+            .build()
     }
 
     @Provides
@@ -28,6 +47,11 @@ class ApiModule {
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+    }
+
+    @Provides
+    fun provideAuthApiService(retrofit: Retrofit): AuthApiService {
+        return retrofit.create(AuthApiService::class.java)
     }
 
     @Provides

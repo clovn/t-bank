@@ -14,20 +14,6 @@ import javax.inject.Inject
 class UserRepositoryImpl @Inject constructor(
     private val userApiService: UserApiService
 ): UserRepository {
-    override suspend fun login(login: String, password: String) = safeApiCall(Dispatchers.IO) {
-        userApiService.login(LoginRequest(login, password))
-    }
-
-    override suspend fun register(
-        username: String,
-        firstName: String,
-        lastName: String,
-        number: String,
-        password: String
-    ) = safeApiCall(Dispatchers.IO) {
-        userApiService.register(RegisterRequest(username, firstName, lastName, number, password))
-    }
-
     override suspend fun getUser() = safeApiCall(Dispatchers.IO) {
         userApiService.getUser()
     }
