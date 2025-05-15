@@ -28,4 +28,10 @@
     <string name="number_placeholder">+79999999999</string>
     <string name="add_expenses">Добавьте расходы</string>
     <string name="expenses">Траты</string>
+    <string name="name_format">%1$s %2$s</string>
+    <string name="number_format">+%1$s</string>
+    <string name="date_format">%1$s - %2$s</string>
+    <string name="retry">Повторить</string>
+    <string name="nav_home">Главная</string>
+    <string name="nav_profile">Профиль</string>
 </resources>

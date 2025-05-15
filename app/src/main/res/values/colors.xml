@@ -16,4 +16,6 @@
     <color name="red">#FFFF0000</color>
     <color name="chart_background">#EEEEEE</color>
     <color name="transparent">#00FFFFFF</color>
+    <color name="shimmer_color">#CCCCCC</color>
+    <color name="blue">#428BF9</color>
 </resources>

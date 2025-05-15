@@ -14,6 +14,7 @@ moshi = "1.15.2"
 navigationUi = "2.8.9"
 retrofit = "2.11.0"
 roomRuntime = "2.7.1"
+shimmer = "0.5.0"
 vbpd = "2.0.4"
 activity = "1.8.0"
 constraintlayout = "2.1.4"
@@ -38,6 +39,7 @@ material = { group = "com.google.android.material", name = "material", version.r
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 moshi = { module = "com.squareup.moshi:moshi", version.ref = "moshi" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+shimmer = { module = "com.facebook.shimmer:shimmer", version.ref = "shimmer" }
 vbpd = { module = "dev.androidbroadcast.vbpd:vbpd", version.ref = "vbpd" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }

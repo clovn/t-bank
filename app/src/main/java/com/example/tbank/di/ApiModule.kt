@@ -1,5 +1,8 @@
 package com.example.tbank.di
 
+import com.example.tbank.data.remote.ExpensesApiService
+import com.example.tbank.data.remote.TripApiService
+import com.example.tbank.data.remote.UserApiService
 import com.example.tbank.data.remote.AuthApiService
 import com.example.tbank.data.remote.authenticator.TokenAuthenticator
 import com.example.tbank.data.remote.interceptor.AuthInterceptor
@@ -47,8 +50,22 @@ class ApiModule {
     }
 
     @Provides
-    fun provideUserApiService(retrofit: Retrofit): AuthApiService {
+    fun provideAuthApiService(retrofit: Retrofit): AuthApiService {
         return retrofit.create(AuthApiService::class.java)
     }
 
+    @Provides
+    fun provideUserApiService(retrofit: Retrofit): UserApiService {
+        return retrofit.create(UserApiService::class.java)
+    }
+
+    @Provides
+    fun providesTripApiService(retrofit: Retrofit): TripApiService {
+        return retrofit.create(TripApiService::class.java)
+    }
+
+    @Provides
+    fun providesExpensesApiService(retrofit: Retrofit): ExpensesApiService {
+        return retrofit.create(ExpensesApiService::class.java)
+    }
 }
