@@ -37,7 +37,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                             binding.loginBtn.isEnabled = false
                         }
                         is LoginState.Success -> {
-                            findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
+                            findNavController().navigate(R.id.action_to_mainFragment)
                         }
                     }
                 }
@@ -58,7 +58,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             }
 
             registerLink.setOnClickListener{
-                findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+                findNavController().navigate(R.id.action_to_registerFragment)
             }
         }
     }

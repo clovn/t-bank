@@ -24,7 +24,6 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         super.onViewCreated(view, savedInstanceState)
 
         initViews()
-
         observeData()
     }
 
@@ -38,7 +37,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                     binding.registerBtn.isEnabled = false
                 }
                 is RegisterState.Success -> {
-                    findNavController().navigate(R.id.action_registerFragment_to_mainFragment)
+                    findNavController().navigate(R.id.action_to_mainFragment)
                 }
             }
         }
@@ -64,7 +63,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
     private fun initViews(){
         binding.apply {
             registerLink.setOnClickListener {
-                findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+                findNavController().navigate(R.id.action_to_loginFragment)
             }
 
             registerBtn.setOnClickListener {
