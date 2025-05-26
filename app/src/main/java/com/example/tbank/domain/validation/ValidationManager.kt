@@ -1,6 +1,9 @@
 package com.example.tbank.domain.validation
 
-class ValidationManager {
+import javax.inject.Inject
+
+
+class ValidationManager @Inject constructor() {
 
     fun isValidLogin(login: String): Boolean {
         val regex = "^[a-zA-Z0-9_-]{3,20}$".toRegex()
