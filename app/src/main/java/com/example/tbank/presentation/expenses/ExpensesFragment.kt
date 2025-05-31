@@ -30,6 +30,11 @@ const val TRIP_ID = "trip_id"
 @AndroidEntryPoint
 class ExpensesFragment: Fragment(R.layout.fragment_expenses) {
 
+    companion object {
+        const val ITEM_MARGIN_HORIZONTAL = 0
+        const val ITEM_MARGIN_VERTICAL = 16
+    }
+
     private val binding by viewBinding(FragmentExpensesBinding::bind)
     private val viewModel: ExpensesViewModel by viewModels()
     private var tripBudget = 0
@@ -74,7 +79,7 @@ class ExpensesFragment: Fragment(R.layout.fragment_expenses) {
             }
 
             expensesRv.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            expensesRv.addItemDecoration(IndentDecorator(0, 16))
+            expensesRv.addItemDecoration(IndentDecorator(ITEM_MARGIN_HORIZONTAL, ITEM_MARGIN_VERTICAL))
         }
     }
 
