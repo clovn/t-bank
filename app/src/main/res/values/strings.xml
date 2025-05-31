@@ -34,4 +34,20 @@
     <string name="retry">Повторить</string>
     <string name="nav_home">Главная</string>
     <string name="nav_profile">Профиль</string>
+    <string name="description">Описание</string>
+    <string name="add_expense">Добавить расход</string>
+    <string name="who_paid">За кого заплатили?</string>
+    <string name="for_all">За всех</string>
+    <string name="for_self">Только за себя</string>
+    <string name="add">Добавить</string>
+
+    <string-array name="categories">
+        <item>Выберите категорию</item>
+        <item>Билеты</item>
+        <item>Отель</item>
+        <item>Питание</item>
+        <item>Развлечения</item>
+        <item>Страховка</item>
+        <item>Другие расходы</item>
+    </string-array>
 </resources>
