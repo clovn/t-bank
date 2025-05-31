@@ -102,7 +102,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"
             android:text="@string/name_placeholder"
-            style="@style/TitleText" />
+            style="@style/TitleNameText" />
 
         <TextView
             android:id="@+id/numberTv"

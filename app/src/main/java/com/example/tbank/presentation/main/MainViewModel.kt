@@ -50,6 +50,9 @@ class MainViewModel @Inject constructor(
                     _uiState.update { UiState.Error(userState.message ?: "Неизвестная ошибка") }
                     return@launch
                 }
+                is ResultWrapper.HttpError -> {
+
+                }
             }
 
             when(val tripState = getTripInfoUseCase.invoke()) {
@@ -62,6 +65,9 @@ class MainViewModel @Inject constructor(
                         return@launch
                     }
                 }
+                is ResultWrapper.HttpError -> {
+
+                }
             }
 
             state.trip?.let {
@@ -72,6 +78,9 @@ class MainViewModel @Inject constructor(
                     is ResultWrapper.Error -> {
                         UiState.Error(expensesSumState.message ?: "Неизвестная ошибка")
                         return@launch
+                    }
+                    is ResultWrapper.HttpError -> {
+
                     }
                 }
             }

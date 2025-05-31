@@ -1,5 +1,7 @@
 package com.example.tbank.presentation
 
+import android.content.Context
+import android.util.TypedValue
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
@@ -42,5 +44,17 @@ fun formatMoney(amount: Int): String {
     val formatter = NumberFormat.getNumberInstance(Locale("ru", "RU"))
     formatter.isGroupingUsed = true
 
-    return "${formatter.format(amount)} ₽"
+    return formatter.format(amount)
 }
+
+fun Int.dp(context: Context) = TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP,
+        this.toFloat(),
+        context.resources.displayMetrics
+    )
+
+fun Int.sp(context: Context) = TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_SP,
+        this.toFloat(),
+        context.resources.displayMetrics
+    )

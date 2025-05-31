@@ -34,4 +34,13 @@
     <string name="retry">Повторить</string>
     <string name="nav_home">Главная</string>
     <string name="nav_profile">Профиль</string>
+    <string name="chart_subtitle_format">/%1$s</string>
+    <string name="format_expense">-%1$s ₽</string>
+    <string name="format_money">%1$s ₽</string>
+    <string name="tickets">Билеты</string>
+    <string name="hotels">Отели</string>
+    <string name="food">Питание</string>
+    <string name="entertainment">Развлечения</string>
+    <string name="insurance">Страховка</string>
+    <string name="more">Остальное</string>
 </resources>
