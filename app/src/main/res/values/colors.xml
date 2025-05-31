@@ -13,6 +13,8 @@
     <color name="button_text">#333333</color>
     <color name="link_color">#428BF9</color>
     <color name="background">#F9F9F9</color>
+    <color name="backgroundNight">#121212</color>
+    <color name="containerNight">#1c1c1e</color>
     <color name="red">#FFFF0000</color>
     <color name="chart_background">#EEEEEE</color>
     <color name="transparent">#00FFFFFF</color>

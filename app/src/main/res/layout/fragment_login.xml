@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context=".presentation.login.LoginFragment"
-    android:background="@color/background">
+    android:background="?attr/backgroundColor">
 
     <TextView
         android:id="@+id/textView"
