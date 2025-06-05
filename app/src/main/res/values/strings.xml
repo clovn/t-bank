@@ -32,6 +32,20 @@
     <string name="trip_date_hint">Дата поездки</string>
     <string name="trip_name_error">Название от 3 до 50 символов</string>
     <string name="trip_budget_error">Бюджет не может быть равен 0</string>
-    <string name="date_format">%1$s - %2$s</string>
     <string name="Create">Создать</string>
+    <string name="name_format">%1$s %2$s</string>
+    <string name="number_format">+%1$s</string>
+    <string name="date_format">%1$s - %2$s</string>
+    <string name="retry">Повторить</string>
+    <string name="nav_home">Главная</string>
+    <string name="nav_profile">Профиль</string>
+    <string name="chart_subtitle_format">/%1$s</string>
+    <string name="format_expense">-%1$s ₽</string>
+    <string name="format_money">%1$s ₽</string>
+    <string name="tickets">Билеты</string>
+    <string name="hotels">Отели</string>
+    <string name="food">Питание</string>
+    <string name="entertainment">Развлечения</string>
+    <string name="insurance">Страховка</string>
+    <string name="more">Остальное</string>
 </resources>

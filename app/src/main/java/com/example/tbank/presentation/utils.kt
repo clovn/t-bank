@@ -13,6 +13,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
+import java.text.NumberFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.Locale
 
 fun Fragment.showError(text: String){
@@ -74,3 +77,28 @@ fun Int.dp(context: Context) = TypedValue.applyDimension(
     this.toFloat(),
     context.resources.displayMetrics
 )
+
+fun dateFormat(date: LocalDate): String {
+    val formatter = DateTimeFormatter.ofPattern("dd.MM")
+
+    return date.format(formatter)
+}
+
+fun formatMoney(amount: Int): String {
+    val formatter = NumberFormat.getNumberInstance(Locale("ru", "RU"))
+    formatter.isGroupingUsed = true
+
+    return formatter.format(amount)
+}
+
+fun Int.dp(context: Context) = TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP,
+        this.toFloat(),
+        context.resources.displayMetrics
+    )
+
+fun Int.sp(context: Context) = TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_SP,
+        this.toFloat(),
+        context.resources.displayMetrics
+    )

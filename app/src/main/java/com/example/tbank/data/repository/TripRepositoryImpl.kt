@@ -5,6 +5,9 @@ import com.example.tbank.domain.model.TripInfo
 import com.example.tbank.domain.model.User
 import com.example.tbank.domain.repository.TripRepository
 import javax.inject.Inject
+import com.example.tbank.data.model.safeApiCall
+import com.example.tbank.data.remote.TripApiService
+import kotlinx.coroutines.Dispatchers
 
 class TripRepositoryImpl @Inject constructor(): TripRepository {
 
@@ -25,5 +28,8 @@ class TripRepositoryImpl @Inject constructor(): TripRepository {
                 participantsNumbers = participants.map { user ->  user.number }
             )
         }
+
+    override suspend fun getActiveTrip() = safeApiCall(Dispatchers.IO) {
+        tripApiService.getActiveTrips()[0]
     }
 }

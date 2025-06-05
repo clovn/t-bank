@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="CircularChartView">
-        <attr name="title" format="string" />
-        <attr name="subTitle" format="string" />
-    </declare-styleable>
     <declare-styleable name="ProgressBar">
         <attr name="progress" format="integer"/>
         <attr name="text" format="string"/>
+    </declare-styleable>
+    <declare-styleable name="ShimmerPlaceholder">
+        <attr name="placeholderWidth" format="dimension" />
+        <attr name="placeholderHeight" format="dimension" />
+    </declare-styleable>
+    <declare-styleable name="CategoryBadge">
+        <attr name="leftIcon" format="reference|color"/>
+        <attr name="rightIcon" format="reference|color"/>
+        <attr name="categoryText" format="string"/>
+        <attr name="percentText" format="string"/>
+        <attr name="percentTextVisible" format="boolean"/>
+        <attr name="categoryBackground" format="color"/>
+        <attr name="rightButtonVisible" format="boolean"/>
     </declare-styleable>
 </resources>

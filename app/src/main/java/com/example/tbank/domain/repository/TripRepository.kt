@@ -7,4 +7,6 @@ interface TripRepository {
     suspend fun saveTripInfo(tripInfo: TripInfo)
 
     suspend fun saveParticipants(participants: Set<User>)
+
+    suspend fun getActiveTrip(): ResultWrapper<Trip?>
 }
