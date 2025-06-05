@@ -7,7 +7,8 @@ import com.example.tbank.databinding.ItemUserBinding
 import com.example.tbank.domain.model.User
 
 class UserListAdapter(
-    val list: List<User>
+    private var list: List<User>,
+    private val onClick: (User) -> Unit
 ): Adapter<UserViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder =
         UserViewHolder(
@@ -16,11 +17,17 @@ class UserListAdapter(
                 parent,
                 false
             ),
+            onClick
         )
 
     override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         holder.bind(list[position])
+    }
+
+    fun setList(list: List<User>){
+        this.list = list
+        notifyDataSetChanged()
     }
 }

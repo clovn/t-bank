@@ -16,9 +16,8 @@ import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
 import dev.androidbroadcast.vbpd.viewBinding
-import java.text.SimpleDateFormat
+import java.time.ZoneId
 import java.util.Date
-import java.util.Locale
 
 @AndroidEntryPoint
 class CreateTripInfoFragment: Fragment(R.layout.fragment_create_trip_info) {
@@ -36,7 +35,7 @@ class CreateTripInfoFragment: Fragment(R.layout.fragment_create_trip_info) {
     private fun initViews() {
         binding.apply {
             nextBtn.setOnClickListener {
-                //TODO findNavController().navigate(R.id.action_to_mainFragment) to create trip participants
+                findNavController().navigate(R.id.action_to_createTripParticipants)
             }
 
             backBtn.setOnClickListener {
@@ -45,12 +44,22 @@ class CreateTripInfoFragment: Fragment(R.layout.fragment_create_trip_info) {
 
             dateIb.setOnClickListener {
                 buildDatePicker { startDate, endDate ->
+                    viewModel.setDates(
+                        startDate.toInstant()
+                            .atZone(ZoneId.systemDefault())
+                            .toLocalDate(),
+                        endDate.toInstant()
+                            .atZone(ZoneId.systemDefault())
+                            .toLocalDate()
+                    )
+
                     dateEt.setText(
                         getString(
                             R.string.date_format,
                             formatDate(startDate),
                             formatDate(endDate)
-                        ))
+                        )
+                    )
                 }.show(parentFragmentManager, "DATE_RANGE_PICKER")
             }
 

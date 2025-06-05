@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/createTripInfoFragment">
+    app:startDestination="@id/createTripParticipantsFragment">
 
     <fragment
         android:id="@+id/loginFragment"
@@ -23,12 +23,6 @@
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" />
 
-    <fragment
-        android:id="@+id/createTripInfoFragment"
-        android:name="com.example.tbank.presentation.createTrip.CreateTripInfoFragment"
-        android:label="CreateTripInfoFragment"
-        tools:layout="@layout/fragment_create_trip_info"/>
-
     <action
         android:id="@+id/action_to_loginFragment"
         app:destination="@id/loginFragment" />
@@ -42,7 +36,29 @@
         app:destination="@id/mainFragment"/>
 
     <action
+        android:id="@+id/action_to_createTripParticipants"
+        app:destination="@id/createTripParticipantsFragment"/>
+
+    <action
         android:id="@+id/action_to_createTripInfoFragment"
         app:destination="@id/createTripInfoFragment"/>
+    <action
+        android:id="@+id/action_to_createTripExpensesFragment"
+        app:destination="@id/createTripExpenses"/>
+
+    <fragment
+        android:id="@+id/createTripInfoFragment"
+        android:name="com.example.tbank.presentation.createTrip.CreateTripInfoFragment"
+        android:label="CreateTripInfoFragment"
+        tools:layout="@layout/fragment_create_trip_info" />
+    <fragment
+        android:id="@+id/createTripParticipantsFragment"
+        android:name="com.example.tbank.presentation.createTrip.CreateTripParticipantsFragment"
+        android:label="CreateTripParticipantsFragment" />
+
+    <fragment
+        android:id="@+id/createTripExpenses"
+        android:name="com.example.tbank.presentation.createTrip.CreateTripExpensesFragment"
+        android:label="CreateTripExpensesFragment" />
 
 </navigation>
