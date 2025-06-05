@@ -7,8 +7,19 @@ import com.example.tbank.domain.model.User
 import com.example.tbank.domain.repository.UserRepository
 import javax.inject.Inject
 
-class UserRepositoryMockImpl @Inject constructor(): UserRepository {
-
+class UserRepositoryMockImpl @Inject constructor(): UserRepository{
+    override suspend fun getUsersByPhoneNumber(number: String) = ResultWrapper.Success(
+        listOf(
+            User(
+                id = 0,
+                username = "clovn",
+                firstName = "Айрат",
+                lastName = "Халиуллин",
+                number = "79999999999"
+            )
+        )
+    )
+    
     companion object {
         private val user = User(
             id = 0,

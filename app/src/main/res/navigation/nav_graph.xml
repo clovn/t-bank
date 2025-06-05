@@ -9,41 +9,57 @@
         android:id="@+id/loginFragment"
         android:name="com.example.tbank.presentation.login.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
-        <action
-            android:id="@+id/action_loginFragment_to_registerFragment"
-            app:destination="@id/registerFragment" />
-        <action
-            android:id="@+id/action_loginFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_login"/>
 
-    <action
-        android:id="@+id/action_global_to_loginFragment"
-        app:destination="@id/loginFragment" />
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.tbank.presentation.register.RegisterFragment"
+        android:label="RegisterFragment"
+        tools:layout="@layout/fragment_register"/>
 
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.example.tbank.presentation.main.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" >
-        <action
-            android:id="@+id/action_mainFragment_to_expensesFragment"
-            app:destination="@id/expensesFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_main" />
+
+    <action
+        android:id="@+id/action_to_loginFragment"
+        app:destination="@id/loginFragment" />
+
+    <action
+        android:id="@+id/action_to_registerFragment"
+        app:destination="@id/registerFragment"/>
+
+    <action
+        android:id="@+id/action_to_mainFragment"
+        app:destination="@id/mainFragment"/>
+
+    <action
+        android:id="@+id/action_to_createTripParticipants"
+        app:destination="@id/createTripParticipantsFragment"/>
+
+    <action
+        android:id="@+id/action_to_createTripInfoFragment"
+        app:destination="@id/createTripInfoFragment"/>
+    <action
+        android:id="@+id/action_to_createTripExpensesFragment"
+        app:destination="@id/createTripExpenses"/>
 
     <fragment
-        android:id="@+id/registerFragment"
-        android:name="com.example.tbank.presentation.register.RegisterFragment"
-        android:label="fragment_register"
-        tools:layout="@layout/fragment_register">
-        <action
-            android:id="@+id/action_registerFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
-        <action
-            android:id="@+id/action_registerFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
-    </fragment>
+        android:id="@+id/createTripInfoFragment"
+        android:name="com.example.tbank.presentation.createTrip.CreateTripInfoFragment"
+        android:label="CreateTripInfoFragment"
+        tools:layout="@layout/fragment_create_trip_info" />
+    <fragment
+        android:id="@+id/createTripParticipantsFragment"
+        android:name="com.example.tbank.presentation.createTrip.CreateTripParticipantsFragment"
+        android:label="CreateTripParticipantsFragment" />
+
+    <fragment
+        android:id="@+id/createTripExpenses"
+        android:name="com.example.tbank.presentation.createTrip.CreateTripExpensesFragment"
+        android:label="CreateTripExpensesFragment" />
 
     <fragment
         android:id="@+id/expensesFragment"

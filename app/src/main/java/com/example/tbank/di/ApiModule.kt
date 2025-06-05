@@ -4,10 +4,12 @@ import com.example.tbank.data.remote.ExpensesApiService
 import com.example.tbank.data.remote.TripApiService
 import com.example.tbank.data.remote.UserApiService
 import com.example.tbank.data.remote.AuthApiService
+import com.example.tbank.data.remote.UserApiService
 import com.example.tbank.data.remote.authenticator.TokenAuthenticator
 import com.example.tbank.data.remote.interceptor.AuthInterceptor
 import com.example.tbank.data.remote.interceptor.UnlockingInterceptor
 import com.example.tbank.data.remote.interceptor.UuidInterceptor
+import com.example.tbank.domain.model.User
 import com.example.tbank.domain.repository.AuthRepository
 import com.example.tbank.domain.repository.TokensRepository
 

@@ -14,6 +14,10 @@ import javax.inject.Inject
 class UserRepositoryImpl @Inject constructor(
     private val userApiService: UserApiService
 ): UserRepository {
+    override suspend fun getUsersByPhoneNumber(number: String) = safeApiCall(Dispatchers.IO) {
+        userApiService.getUsersByPhoneNumber(number)
+    }
+    
     override suspend fun getUser() = safeApiCall(Dispatchers.IO) {
         userApiService.getUser()
     }

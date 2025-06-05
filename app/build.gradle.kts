@@ -76,6 +76,5 @@ dependencies {
     implementation (libs.shimmer)
 
     implementation(libs.androidx.datastore.preferences)
-
-    implementation(libs.flexbox)
+    implementation (libs.flexbox)
 }
