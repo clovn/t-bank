@@ -1,14 +1,11 @@
 package com.example.tbank.domain.validation
 
-class ValidationManager {
+import javax.inject.Inject
 
-    fun isValidLogin(login: String): Boolean {
-        val regex = "^[a-zA-Z0-9_-]{3,20}$".toRegex()
-        return regex.matches(login)
-    }
+class ValidationManager @Inject constructor() {
 
     fun isValidName(name: String): Boolean {
-        val regex = "^[а-яА-Я]{3,20}$".toRegex()
+        val regex = "^[а-яА-Яa-zA-Z]{3,20}$".toRegex()
         return regex.matches(name)
     }
 
@@ -24,5 +21,15 @@ class ValidationManager {
 
     fun arePasswordsMatching(password: String, confirmPassword: String): Boolean {
         return password == confirmPassword
+    }
+
+    fun isValidTripName(tripName: String): Boolean {
+        val regex = "^[a-zA-Zа-яА-Я0-9_-]{3,50}$".toRegex()
+        return regex.matches(tripName)
+    }
+
+    fun isValidTripBudget(tripBudget: String): Boolean {
+        val regex = "^(?!0\$)\\d+\$".toRegex()
+        return regex.matches(tripBudget)
     }
 }

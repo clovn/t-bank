@@ -24,7 +24,6 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         super.onViewCreated(view, savedInstanceState)
 
         initViews()
-
         observeData()
     }
 
@@ -38,7 +37,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                     binding.registerBtn.isEnabled = false
                 }
                 is RegisterState.Success -> {
-                    findNavController().navigate(R.id.action_registerFragment_to_mainFragment)
+                    findNavController().navigate(R.id.action_to_mainFragment)
                 }
             }
         }
@@ -49,7 +48,6 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
 
         registerViewModel.formState.observe(viewLifecycleOwner) { state ->
             binding.apply {
-                loginError.visibility = if (state.loginState.isValid) View.GONE else View.VISIBLE
                 firstNameError.visibility = if (state.firstNameState.isValid) View.GONE else View.VISIBLE
                 lastNameError.visibility = if (state.lastNameState.isValid) View.GONE else View.VISIBLE
                 passwordError.visibility = if (state.passwordState.isValid) View.GONE else View.VISIBLE
@@ -64,7 +62,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
     private fun initViews(){
         binding.apply {
             registerLink.setOnClickListener {
-                findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+                findNavController().navigate(R.id.action_to_loginFragment)
             }
 
             registerBtn.setOnClickListener {
@@ -72,11 +70,6 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
             }
 
             val currentState = registerViewModel.formState.value
-
-            loginEt.apply {
-                setText(currentState.loginState.value)
-                addTextChangedListener { registerViewModel.onLoginChanged(it.toString().trim()) }
-            }
 
             firstNameEt.apply {
                 setText(currentState.firstNameState.value)

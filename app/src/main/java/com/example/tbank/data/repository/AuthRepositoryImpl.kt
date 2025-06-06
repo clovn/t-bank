@@ -14,22 +14,21 @@ class AuthRepositoryImpl @Inject constructor(
     private val authApiService: AuthApiService,
     private val tokensRepository: TokensRepository
 ): AuthRepository {
-    override suspend fun login(login: String, password: String) = safeApiCall(Dispatchers.IO) {
-        authApiService.login(LoginRequest(login, password))
+    override suspend fun login(number: String, password: String) = safeApiCall(Dispatchers.IO) {
+        authApiService.login(LoginRequest(number, password))
     }
 
     override suspend fun register(
-        username: String,
         firstName: String,
         lastName: String,
         number: String,
         password: String
     ) = safeApiCall(Dispatchers.IO) {
-        authApiService.register(RegisterRequest(username, firstName, lastName, number, password))
+        authApiService.register(RegisterRequest(firstName, lastName, number, password, "awdawd"))
     }
 
     override suspend fun refresh() = safeApiCall(Dispatchers.IO) {
-        val response = authApiService.refreshToken(tokensRepository.getRefreshToken())
+        val response = authApiService.refreshToken("Bearer ${tokensRepository.getRefreshToken()}")
         tokensRepository.saveAccessToken(response.accessToken)
         tokensRepository.saveRefreshToken(response.refreshToken)
         response

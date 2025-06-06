@@ -1,6 +1,7 @@
 [versions]
 agp = "8.8.0"
 datastorePreferences = "1.1.4"
+flexbox = "3.0.0"
 hiltAndroid = "2.56.1"
 kotlin = "2.1.0"
 coreKtx = "1.10.1"
@@ -29,6 +30,7 @@ androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRunt
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+flexbox = { module = "com.google.android.flexbox:flexbox", version.ref = "flexbox" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
 hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroid" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }

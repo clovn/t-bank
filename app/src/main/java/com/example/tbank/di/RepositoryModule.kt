@@ -1,18 +1,15 @@
 package com.example.tbank.di
 
-<<<<<<< HEAD
-import com.example.tbank.data.repository.mock.ExpensesRepositoryMockImpl
-import com.example.tbank.data.repository.mock.TripRepositoryMockImpl
-import com.example.tbank.data.repository.mock.UserRepositoryMockImpl
+import com.example.tbank.data.repository.AuthRepositoryImpl
+import com.example.tbank.data.repository.ExpensesRepositoryImpl
 import com.example.tbank.domain.repository.ExpensesRepository
 import com.example.tbank.domain.repository.TripRepository
 import com.example.tbank.domain.repository.UserRepository
-=======
 import com.example.tbank.data.repository.TokensRepositoryImpl
-import com.example.tbank.data.repository.mock.AuthRepositoryMockImpl
+import com.example.tbank.data.repository.TripRepositoryImpl
+import com.example.tbank.data.repository.UserRepositoryImpl
 import com.example.tbank.domain.repository.AuthRepository
 import com.example.tbank.domain.repository.TokensRepository
->>>>>>> master
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -22,16 +19,18 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 abstract class RepositoryModule {
     @Binds
-    abstract fun bindsUserRepository(userRepositoryMockImpl: UserRepositoryMockImpl): UserRepository
+    abstract fun bindsTripRepository(tripRepositoryImpl: TripRepositoryImpl): TripRepository
 
     @Binds
-    abstract fun bindsTripRepository(tripRepositoryMockImpl: TripRepositoryMockImpl): TripRepository
+    abstract fun bindsExpensesRepository(expensesRepositoryImpl: ExpensesRepositoryImpl): ExpensesRepository
 
     @Binds
-    abstract fun bindsExpensesRepository(expensesRepositoryMockImpl: ExpensesRepositoryMockImpl): ExpensesRepository
-
-    abstract fun bindsUserRepository(userRepositoryMockImpl: AuthRepositoryMockImpl): AuthRepository
+    abstract fun bindsAuthRepository(authRepositoryImpl: AuthRepositoryImpl): AuthRepository
 
     @Binds
     abstract fun bindsTokenRepository(tokensRepositoryImpl: TokensRepositoryImpl): TokensRepository
+
+    @Binds
+    abstract fun bindsUserRepository(userRepositoryImpl: UserRepositoryImpl): UserRepository
+
 }

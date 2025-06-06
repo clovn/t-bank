@@ -8,4 +8,6 @@ interface TokensRepository {
     suspend fun getAccessToken(): String?
     suspend fun getRefreshToken(): String?
     suspend fun clearTokens()
+    suspend fun saveId(id: Int)
+    suspend fun getId(): Int?
 }

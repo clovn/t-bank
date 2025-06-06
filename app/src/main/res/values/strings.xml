@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">T-bank</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="hint_phone_number">Номер телефона</string>
     <string name="hint_password">Пароль</string>
@@ -28,6 +27,12 @@
     <string name="number_placeholder">+79999999999</string>
     <string name="add_expenses">Добавьте расходы</string>
     <string name="expenses">Траты</string>
+    <string name="end_date_hint">Дата конца</string>
+    <string name="name_or_number_hint">Номер или имя</string>
+    <string name="trip_date_hint">Дата поездки</string>
+    <string name="trip_name_error">Название от 3 до 50 символов</string>
+    <string name="trip_budget_error">Бюджет не может быть равен 0</string>
+    <string name="Create">Создать</string>
     <string name="name_format">%1$s %2$s</string>
     <string name="number_format">+%1$s</string>
     <string name="date_format">%1$s - %2$s</string>
@@ -40,7 +45,6 @@
     <string name="for_all">За всех</string>
     <string name="for_self">Только за себя</string>
     <string name="add">Добавить</string>
-
     <string-array name="categories">
         <item>Выберите категорию</item>
         <item>Билеты</item>
@@ -50,4 +54,13 @@
         <item>Страховка</item>
         <item>Другие расходы</item>
     </string-array>
+    <string name="chart_subtitle_format">/%1$s</string>
+    <string name="format_expense">-%1$s ₽</string>
+    <string name="format_money">%1$s ₽</string>
+    <string name="tickets">Билеты</string>
+    <string name="hotels">Отели</string>
+    <string name="food">Питание</string>
+    <string name="entertainment">Развлечения</string>
+    <string name="insurance">Страховка</string>
+    <string name="more">Остальное</string>
 </resources>

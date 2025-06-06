@@ -4,12 +4,17 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.tbank.R
 import com.example.tbank.databinding.FragmentMainBinding
 import com.example.tbank.domain.model.Trip
 import com.example.tbank.domain.model.User
 import com.example.tbank.presentation.dateFormat
+import com.example.tbank.presentation.expenses.TRIP_BUDGET
+import com.example.tbank.presentation.expenses.TRIP_ID
+import com.example.tbank.presentation.expenses.TRIP_NAME
 import com.example.tbank.presentation.formatMoney
+import com.example.tbank.presentation.formatPhoneNumber
 import com.example.tbank.presentation.observe
 import dagger.hilt.android.AndroidEntryPoint
 import dev.androidbroadcast.vbpd.viewBinding
@@ -19,6 +24,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     private val binding: FragmentMainBinding by viewBinding(FragmentMainBinding::bind)
     private val mainViewModel: MainViewModel by viewModels()
+    private var trip: Trip? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -35,10 +41,20 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 //TODO navigate to notifications screen
             }
             tripInfo.setOnClickListener {
-                //TODO navigate to expenses screen
+                findNavController().navigate(R.id.action_to_expenses_fragment, Bundle().apply {
+                    trip?.let {
+                        putString(TRIP_NAME, it.name)
+                        putLong(TRIP_ID, it.id)
+                        putInt(TRIP_BUDGET, it.budget)
+                    }
+                })
             }
             addExpenses.setOnClickListener {
-                //TODO navigate to add expenses screen
+                //TODO navigate to add expenses
+            }
+
+            createTripBtn.setOnClickListener {
+                findNavController().navigate(R.id.action_to_createTripInfoFragment)
             }
         }
     }
@@ -53,6 +69,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 }
                 is UiState.Loaded -> {
                     hideShimmer()
+                    trip = state.trip
                     showContent(state.trip, state.user, state.expensesSum)
                 }
                 is UiState.Error -> {
@@ -72,7 +89,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
             user?.let {
                 nameTv.text = getString(R.string.name_format, user.firstName, user.lastName)
-                numberTv.text = getString(R.string.number_format, user.number)
+                numberTv.text = formatPhoneNumber(user.number)
             } ?: return
 
             if(trip != null && expensesSum != null){
@@ -83,8 +100,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                     dateFormat(trip.endDate)
                 )
                 tripPeopleCountTv.text = trip.participantsCount.toString()
-                tripBudgetTv.text = formatMoney(trip.budget)
-                expenseTv.text = formatMoney(expensesSum)
+                tripBudgetTv.text = getString(R.string.format_money, formatMoney(trip.budget))
+                expenseTv.text = getString(R.string.format_money, formatMoney(expensesSum))
                 tripExpensesPb.setProgress(expensesSum * 100 / trip.budget)
 
                 tripInfo.visibility = View.VISIBLE

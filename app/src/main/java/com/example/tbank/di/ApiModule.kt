@@ -24,6 +24,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 @InstallIn(SingletonComponent::class)
 class ApiModule {
 
+    companion object{
+        const val BASE_URL = "http://192.168.0.104:8081/api/v1/"
+    }
+
     @Provides
     fun provideOkHttpClient(authRepository: AuthRepository, tokensRepository: TokensRepository): OkHttpClient {
         val mutex = Mutex()
@@ -43,15 +47,20 @@ class ApiModule {
     @Provides
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://example.com/")
+            .baseUrl(BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
 
     @Provides
-    fun provideAuthApiService(retrofit: Retrofit): AuthApiService {
-        return retrofit.create(AuthApiService::class.java)
+    fun provideAuthApiService(): AuthApiService {
+        return Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(OkHttpClient())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(AuthApiService::class.java)
     }
 
     @Provides

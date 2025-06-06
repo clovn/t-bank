@@ -1,5 +1,6 @@
 package com.example.tbank.data.model
 
+import android.util.Log
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
@@ -18,9 +19,18 @@ suspend fun <T> safeApiCall(dispatcher: CoroutineDispatcher, apiCall: suspend ()
             ResultWrapper.Success(apiCall.invoke())
         } catch (throwable: Throwable) {
             when (throwable) {
-                is IOException -> ResultWrapper.Error("Проблемы с интернетом")
-                is HttpException -> { ResultWrapper.HttpError(convertErrorBody(throwable), throwable.code()) }
-                else -> ResultWrapper.Error("Неизвестная ошибка")
+                is IOException -> {
+                    Log.d("IOEXCP", throwable.toString())
+                    ResultWrapper.Error("Проблемы с интернетом")
+                }
+                is HttpException -> {
+                    Log.d("HTTPEXCP", throwable.toString())
+                    ResultWrapper.HttpError(convertErrorBody(throwable), throwable.code())
+                }
+                else -> {
+                    Log.d("neizv", throwable.toString())
+                    ResultWrapper.Error("Неизвестная ошибка")
+                }
             }
         }
     }
