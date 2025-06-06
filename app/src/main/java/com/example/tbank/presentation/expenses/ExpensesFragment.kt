@@ -18,6 +18,7 @@ import com.example.tbank.presentation.mapper.mapCategoryTypeColor
 import com.example.tbank.presentation.mapper.mapCategoryTypeDrawable
 import com.example.tbank.presentation.mapper.mapCategoryTypeText
 import com.example.tbank.presentation.model.ExpenseView
+import com.example.tbank.presentation.model.Segment
 import com.example.tbank.presentation.observe
 import com.example.tbank.presentation.showError
 import dagger.hilt.android.AndroidEntryPoint
@@ -103,10 +104,12 @@ class ExpensesFragment: Fragment(R.layout.fragment_expenses) {
                 chartTitle.text = formatMoney(categoriesList.sumOf { it.amount })
 
                 chart.addSegment(
-                    percentage = (category.amount * 100 / tripBudget).toFloat(),
-                    color = ContextCompat.getColor(
-                        requireContext(),
-                        mapCategoryTypeColor(category.type)
+                    Segment(
+                        percentage = (category.amount * 100 / tripBudget).toFloat(),
+                        color = ContextCompat.getColor(
+                            requireContext(),
+                            mapCategoryTypeColor(category.type)
+                        )
                     )
                 )
 

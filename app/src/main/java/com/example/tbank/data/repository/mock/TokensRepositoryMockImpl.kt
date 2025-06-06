@@ -15,4 +15,9 @@ class TokensRepositoryMockImpl @Inject constructor() : TokensRepository {
 
     override suspend fun getRefreshToken() = "r_token"
     override suspend fun clearTokens() = Unit
+    override suspend fun saveId(id: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getId(): Int = 1
 }

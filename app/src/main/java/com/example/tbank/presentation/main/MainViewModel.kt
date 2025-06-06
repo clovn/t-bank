@@ -47,11 +47,14 @@ class MainViewModel @Inject constructor(
                     state.user = userState.value
                 }
                 is ResultWrapper.Error -> {
-                    _uiState.update { UiState.Error(userState.message ?: "Неизвестная ошибка") }
+                    _uiState.update { UiState.Error(userState.message ?: "Неизвестная ошибка 1") }
                     return@launch
                 }
                 is ResultWrapper.HttpError -> {
-
+                    _uiState.update {
+                        UiState.Error(userState.message ?: "Неизвестная ошибка 2")
+                    }
+                    return@launch
                 }
             }
 
@@ -61,12 +64,15 @@ class MainViewModel @Inject constructor(
                 }
                 is ResultWrapper.Error -> {
                     _uiState.update {
-                        UiState.Error(tripState.message ?: "Неизвестная ошибка")
-                        return@launch
+                        UiState.Error(tripState.message ?: "Неизвестная ошибка 3")
                     }
+                    return@launch
                 }
                 is ResultWrapper.HttpError -> {
-
+                    _uiState.update {
+                        UiState.Error(tripState.message ?: "Неизвестная ошибка 4")
+                    }
+                    return@launch
                 }
             }
 
@@ -76,11 +82,16 @@ class MainViewModel @Inject constructor(
                         state.expensesSum = expensesSumState.value
                     }
                     is ResultWrapper.Error -> {
-                        UiState.Error(expensesSumState.message ?: "Неизвестная ошибка")
+                        _uiState.update {
+                            UiState.Error(expensesSumState.message ?: "Неизвестная ошибка 5")
+                        }
                         return@launch
                     }
                     is ResultWrapper.HttpError -> {
-
+                        _uiState.update {
+                            UiState.Error(expensesSumState.message ?: "Неизвестная ошибка 6")
+                        }
+                        return@launch
                     }
                 }
             }

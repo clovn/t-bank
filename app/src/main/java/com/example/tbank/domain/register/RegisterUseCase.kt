@@ -5,6 +5,7 @@ import com.example.tbank.data.model.ResultWrapper
 import com.example.tbank.domain.model.User
 import com.example.tbank.domain.repository.TokensRepository
 import com.example.tbank.domain.repository.AuthRepository
+import com.example.tbank.presentation.normalizePhoneNumber
 import javax.inject.Inject
 
 class RegisterUseCase @Inject constructor(
@@ -13,19 +14,26 @@ class RegisterUseCase @Inject constructor(
 ) {
 
     suspend fun invoke(
-        username: String,
         firstName: String,
         lastName: String,
         number: String,
         password: String
     ): ResultWrapper<User> {
-        val result = authRepository.register(username, firstName, lastName, normalizePhoneNumber(number), password)
+        val result = authRepository.register(firstName, lastName, normalizePhoneNumber(number), password)
         return when(result){
             is ResultWrapper.Success<LoginResponse> -> {
-                tokensRepository.saveAccessToken(result.value.accessToken)
-                tokensRepository.saveRefreshToken(result.value.refreshToken)
+                tokensRepository.saveAccessToken(result.value.jwtTokenPairDto.accessToken)
+                tokensRepository.saveRefreshToken(result.value.jwtTokenPairDto.refreshToken)
+                tokensRepository.saveId(result.value.userDto.id)
 
-                ResultWrapper.Success(result.value.user)
+                ResultWrapper.Success(
+                    User(
+                        id = result.value.userDto.id,
+                        firstName = result.value.userDto.firstName,
+                        lastName = result.value.userDto.lastName,
+                        number = result.value.userDto.phoneNumber
+                    )
+                )
             }
             is ResultWrapper.Error -> {
                 result
@@ -34,9 +42,5 @@ class RegisterUseCase @Inject constructor(
                 result
             }
         }
-    }
-
-    private fun normalizePhoneNumber(number: String): String {
-        return number.replace(Regex("\\D"), "")
     }
 }

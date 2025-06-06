@@ -4,13 +4,8 @@ import javax.inject.Inject
 
 class ValidationManager @Inject constructor() {
 
-    fun isValidLogin(login: String): Boolean {
-        val regex = "^[a-zA-Z0-9_-]{3,20}$".toRegex()
-        return regex.matches(login)
-    }
-
     fun isValidName(name: String): Boolean {
-        val regex = "^[а-яА-Я]{3,20}$".toRegex()
+        val regex = "^[а-яА-Яa-zA-Z]{3,20}$".toRegex()
         return regex.matches(name)
     }
 

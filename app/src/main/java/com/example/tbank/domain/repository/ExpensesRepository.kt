@@ -7,4 +7,5 @@ interface ExpensesRepository {
     suspend fun getTripExpensesSum(tripId: Long): ResultWrapper<Int>
 
     suspend fun getTripExpenses(tripId: Long): ResultWrapper<List<Expense>>
+
 }

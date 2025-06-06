@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/loginFragment"
@@ -36,6 +36,10 @@
         app:destination="@id/mainFragment"/>
 
     <action
+        android:id="@+id/action_to_expenses_fragment"
+        app:destination="@id/expensesFragment"/>
+
+    <action
         android:id="@+id/action_to_createTripParticipants"
         app:destination="@id/createTripParticipantsFragment"/>
 
@@ -54,12 +58,14 @@
     <fragment
         android:id="@+id/createTripParticipantsFragment"
         android:name="com.example.tbank.presentation.createTrip.CreateTripParticipantsFragment"
-        android:label="CreateTripParticipantsFragment" />
+        android:label="CreateTripParticipantsFragment"
+        tools:layout="@layout/fragment_create_trip_participants"/>
 
     <fragment
         android:id="@+id/createTripExpenses"
         android:name="com.example.tbank.presentation.createTrip.CreateTripExpensesFragment"
-        android:label="CreateTripExpensesFragment" />
+        android:label="CreateTripExpensesFragment"
+        tools:layout="@layout/fragment_create_trip_expenses"/>
 
     <fragment
         android:id="@+id/expensesFragment"

@@ -1,9 +1,7 @@
 package com.example.tbank.presentation.login
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -24,6 +22,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        loginViewModel.checkLogin()
+
         initViews()
 
         lifecycleScope.launch {
@@ -37,6 +37,9 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                             binding.loginBtn.isEnabled = false
                         }
                         is LoginState.Success -> {
+                            findNavController().navigate(R.id.action_to_mainFragment)
+                        }
+                        is LoginState.Logged -> {
                             findNavController().navigate(R.id.action_to_mainFragment)
                         }
                     }
@@ -54,7 +57,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private fun initViews(){
         binding.apply {
             loginBtn.setOnClickListener {
-                loginViewModel.login(login = loginEt.text.toString(), password = passwordEt.text.toString())
+                loginViewModel.login(number = loginEt.text.toString(), password = passwordEt.text.toString())
             }
 
             registerLink.setOnClickListener{

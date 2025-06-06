@@ -44,7 +44,6 @@ class RegisterViewModel @Inject constructor(
 
             val currentState = _formState.value
             val result = registerUseCase.invoke(
-                currentState.loginState.value,
                 currentState.firstNameState.value,
                 currentState.lastNameState.value,
                 currentState.numberState.value,
@@ -62,12 +61,6 @@ class RegisterViewModel @Inject constructor(
                     _uiState.update { RegisterState.Idle }
                 }
             }
-        }
-    }
-
-    fun onLoginChanged(login: String) {
-        updateFieldAndValidate {
-            copy(loginState = FieldState(login, validationManager.isValidLogin(login)))
         }
     }
 
@@ -117,8 +110,7 @@ class RegisterViewModel @Inject constructor(
 
     private fun validateFields() {
         val currentState = _formState.value
-        val isRegisterBtnActive = currentState.loginState.isValid &&
-                currentState.firstNameState.isValid &&
+        val isRegisterBtnActive = currentState.firstNameState.isValid &&
                 currentState.lastNameState.isValid &&
                 currentState.passwordState.isValid &&
                 currentState.numberState.isValid &&

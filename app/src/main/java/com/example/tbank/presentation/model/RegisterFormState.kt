@@ -1,7 +1,6 @@
 package com.example.tbank.presentation.model
 
 data class RegisterFormState(
-    val loginState: FieldState = FieldState(),
     val firstNameState: FieldState = FieldState(),
     val lastNameState: FieldState = FieldState(),
     val passwordState: FieldState = FieldState(),

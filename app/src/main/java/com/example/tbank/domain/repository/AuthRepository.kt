@@ -5,10 +5,9 @@ import com.example.tbank.data.model.ResultWrapper
 import com.example.tbank.data.model.TokenResponse
 
 interface AuthRepository {
-    suspend fun login(login: String, password: String): ResultWrapper<LoginResponse>
+    suspend fun login(number: String, password: String): ResultWrapper<LoginResponse>
 
     suspend fun register(
-        username: String,
         firstName: String,
         lastName: String,
         number: String,

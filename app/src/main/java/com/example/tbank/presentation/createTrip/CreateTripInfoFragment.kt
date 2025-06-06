@@ -35,6 +35,7 @@ class CreateTripInfoFragment: Fragment(R.layout.fragment_create_trip_info) {
     private fun initViews() {
         binding.apply {
             nextBtn.setOnClickListener {
+                viewModel.saveInfo()
                 findNavController().navigate(R.id.action_to_createTripParticipants)
             }
 

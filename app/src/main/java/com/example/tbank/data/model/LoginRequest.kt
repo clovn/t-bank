@@ -1,6 +1,6 @@
 package com.example.tbank.data.model
 
 data class LoginRequest(
-    val login: String,
+    val phoneNumber: String,
     val password: String
 )

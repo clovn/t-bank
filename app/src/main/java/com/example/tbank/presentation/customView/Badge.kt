@@ -29,7 +29,7 @@ class Badge @JvmOverloads constructor(
 
             }
 
-            nameTv.text = user.username
+            nameTv.text = user.firstName
         }
     }
 

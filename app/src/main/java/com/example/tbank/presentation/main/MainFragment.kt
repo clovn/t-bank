@@ -14,6 +14,7 @@ import com.example.tbank.presentation.expenses.TRIP_BUDGET
 import com.example.tbank.presentation.expenses.TRIP_ID
 import com.example.tbank.presentation.expenses.TRIP_NAME
 import com.example.tbank.presentation.formatMoney
+import com.example.tbank.presentation.formatPhoneNumber
 import com.example.tbank.presentation.observe
 import dagger.hilt.android.AndroidEntryPoint
 import dev.androidbroadcast.vbpd.viewBinding
@@ -40,7 +41,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 //TODO navigate to notifications screen
             }
             tripInfo.setOnClickListener {
-                findNavController().navigate(R.id.action_mainFragment_to_expensesFragment, Bundle().apply {
+                findNavController().navigate(R.id.action_to_expenses_fragment, Bundle().apply {
                     trip?.let {
                         putString(TRIP_NAME, it.name)
                         putLong(TRIP_ID, it.id)
@@ -50,6 +51,10 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             }
             addExpenses.setOnClickListener {
                 //TODO navigate to add expenses
+            }
+
+            createTripBtn.setOnClickListener {
+                findNavController().navigate(R.id.action_to_createTripInfoFragment)
             }
         }
     }
@@ -84,7 +89,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
             user?.let {
                 nameTv.text = getString(R.string.name_format, user.firstName, user.lastName)
-                numberTv.text = getString(R.string.number_format, user.number)
+                numberTv.text = formatPhoneNumber(user.number)
             } ?: return
 
             if(trip != null && expensesSum != null){

@@ -69,14 +69,8 @@ fun formatPhoneNumber(input: String): String {
 }
 
 fun normalizePhoneNumber(number: String): String {
-    return number.replace(Regex("\\D"), "")
+    return number.replace(Regex("\\D"), "").replaceFirst("7", "8")
 }
-
-fun Int.dp(context: Context) = TypedValue.applyDimension(
-    TypedValue.COMPLEX_UNIT_DIP,
-    this.toFloat(),
-    context.resources.displayMetrics
-)
 
 fun dateFormat(date: LocalDate): String {
     val formatter = DateTimeFormatter.ofPattern("dd.MM")

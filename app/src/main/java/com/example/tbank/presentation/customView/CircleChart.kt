@@ -5,9 +5,9 @@ import android.graphics.*
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
-import androidx.annotation.ColorInt
 import com.example.tbank.R
 import com.example.tbank.presentation.dp
+import com.example.tbank.presentation.model.Segment
 
 class CircleChart @JvmOverloads constructor(
     context: Context,
@@ -19,6 +19,8 @@ class CircleChart @JvmOverloads constructor(
     private var totalPercentage = 0f
     private var ringRadius = 0f
     private val ringThickness = 20.dp(context)
+    private val graySegment = Segment(100f, R.color.chart_background)
+    private var fillGray = true
 
     private val segmentPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.STROKE
@@ -54,19 +56,31 @@ class CircleChart @JvmOverloads constructor(
             startAngle += sweepAngle
         }
 
-        if (totalPercentage < 100) {
+        if (totalPercentage < 100 && fillGray) {
             val remainingPercentage = 100 - totalPercentage
-            addSegment(remainingPercentage, context.getColor(R.color.chart_background))
+            addSegment(graySegment.copy(percentage = remainingPercentage))
         }
     }
 
-    fun addSegment(percentage: Float, @ColorInt color: Int) {
-        if (totalPercentage + percentage > 100) {
+    fun addSegment(segment: Segment) {
+        if (totalPercentage + segment.percentage > 100) {
             Log.d("ERROR", "Общий процент не может превышать 100")
             return
         }
-        segments.add(Segment(percentage, color))
-        totalPercentage += percentage
+        segments.add(segment)
+        totalPercentage += segment.percentage
+        Log.d("DEBUG", "${segment.percentage}")
+        invalidate()
+    }
+
+    fun removeSegment(segment: Segment) {
+        segments.remove(segment)
+        totalPercentage -= segment.percentage
+        invalidate()
+    }
+
+    fun isFillGray(fillGray: Boolean){
+        this.fillGray = fillGray
         invalidate()
     }
 
@@ -75,6 +89,4 @@ class CircleChart @JvmOverloads constructor(
         totalPercentage = 0f
         invalidate()
     }
-
-    private data class Segment(val percentage: Float, val color: Int)
 }

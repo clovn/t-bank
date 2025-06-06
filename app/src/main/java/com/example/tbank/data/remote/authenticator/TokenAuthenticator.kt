@@ -53,7 +53,12 @@ class TokenAuthenticator(
     private suspend fun getNewAccessToken(): String? {
         return when(val response = authRepository.refresh()){
             is ResultWrapper.Success<TokenResponse> -> response.value.accessToken
-            else -> null
+            is ResultWrapper.Error -> {
+                null
+            }
+            is ResultWrapper.HttpError -> {
+                null
+            }
         }
     }
 }

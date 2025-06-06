@@ -12,8 +12,8 @@ class UserViewHolder(
 
     fun bind(user: User){
         binding.apply {
-            icon.text = user.username.first().uppercaseChar().toString()
-            name.text = user.username
+            icon.text = user.firstName.first().uppercaseChar().toString()
+            name.text = user.firstName
             number.text = formatPhoneNumber(user.number)
         }
         binding.root.setOnClickListener {

@@ -11,13 +11,21 @@ class LoginUseCase @Inject constructor(
     private val tokensRepository: TokensRepository
 ) {
 
-    suspend fun invoke(login: String, password: String): ResultWrapper<User> {
-        return when(val response = authRepository.login(login, password)){
+    suspend fun invoke(number: String, password: String): ResultWrapper<User> {
+        return when(val response = authRepository.login(number, password)){
             is ResultWrapper.Success -> {
-                tokensRepository.saveAccessToken(response.value.accessToken)
-                tokensRepository.saveRefreshToken(response.value.refreshToken)
+                tokensRepository.saveAccessToken(response.value.jwtTokenPairDto.accessToken)
+                tokensRepository.saveRefreshToken(response.value.jwtTokenPairDto.refreshToken)
+                tokensRepository.saveId(response.value.userDto.id)
 
-                ResultWrapper.Success(response.value.user)
+                ResultWrapper.Success(
+                    User(
+                        id = response.value.userDto.id,
+                        firstName = response.value.userDto.firstName,
+                        lastName = response.value.userDto.lastName,
+                        number = response.value.userDto.phoneNumber
+                    )
+                )
             }
             is ResultWrapper.Error -> response
             is ResultWrapper.HttpError -> response

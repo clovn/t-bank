@@ -11,7 +11,9 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class TokensRepositoryImpl @Inject constructor(
     @ApplicationContext private val context: Context
 ) : TokensRepository {
@@ -50,9 +52,20 @@ class TokensRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun saveId(id: Int) {
+        context.dataStore.edit { preferences ->
+            preferences[ID_KEY] = id.toString()
+        }
+    }
+
+    override suspend fun getId() = context.dataStore.data.map {
+        preferences -> preferences[ID_KEY]?.toInt()
+    }.firstOrNull()
+
     companion object {
         private val ACCESS_TOKEN_KEY = stringPreferencesKey("access_token")
         private val REFRESH_TOKEN_KEY = stringPreferencesKey("refresh_token")
+        private val ID_KEY = stringPreferencesKey("id_key")
         private const val PREFS_NAME = "token_prefs"
     }
 }

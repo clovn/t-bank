@@ -8,19 +8,22 @@ import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import com.example.tbank.R
 import com.example.tbank.databinding.ItemCategoryBinding
+import com.example.tbank.domain.model.Category
 
 class CategoryBadge @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
+    defStyleAttr: Int = 0,
 ) : LinearLayout(context, attrs, defStyleAttr) {
 
     private val binding: ItemCategoryBinding = ItemCategoryBinding.inflate(
         LayoutInflater.from(context), this, true
     )
 
+
     private var showPercent = false
     private var rightButtonVisible = false
+    private var category: Category? = null
 
     init {
         orientation = HORIZONTAL
@@ -90,4 +93,10 @@ class CategoryBadge @JvmOverloads constructor(
     fun setOnRightButtonClickListener(listener: OnClickListener) {
         binding.button.setOnClickListener(listener)
     }
+
+    fun setCategory(category: Category){
+        this.category = category
+    }
+
+    fun getCategory() = category
 }
