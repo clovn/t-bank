@@ -55,6 +55,10 @@ class CreateTripParticipantsFragment: Fragment(R.layout.fragment_create_trip_par
                 viewModel.saveInfo()
                 findNavController().navigate(R.id.action_to_createTripExpensesFragment)
             }
+
+            backBtn.setOnClickListener {
+                findNavController().navigateUp()
+            }
         }
     }
 

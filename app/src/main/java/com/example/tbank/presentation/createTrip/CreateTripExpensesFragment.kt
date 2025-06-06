@@ -63,6 +63,11 @@ class CreateTripExpensesFragment: Fragment(R.layout.fragment_create_trip_expense
             chartTv.text = formatMoney(viewModel.getBudget())
 
             chart.isFillGray(false)
+
+
+            backBtn.setOnClickListener {
+                findNavController().navigateUp()
+            }
         }
     }
 
