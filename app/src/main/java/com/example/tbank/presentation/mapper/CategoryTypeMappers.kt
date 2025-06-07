@@ -35,3 +35,13 @@ fun mapCategoryTypeText(categoryType: CategoryType): Int {
         CategoryType.More -> R.string.more
     }
 }
+
+fun mapTextCategoryType(text: String) = when(text){
+        "Страховка" -> CategoryType.Insurance
+        "Отели" -> CategoryType.Hotel
+        "Питание" -> CategoryType.Food
+        "Билеты" -> CategoryType.Tickets
+        "Развлечения" -> CategoryType.Entertainment
+        "Остальное" -> CategoryType.More
+        else -> CategoryType.Tickets
+    }

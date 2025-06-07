@@ -1,7 +1,6 @@
 package com.example.tbank.presentation.createTrip
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -10,7 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tbank.R
 import com.example.tbank.databinding.FragmentCreateTripParticipantsBinding
-import com.example.tbank.presentation.createTrip.recycler.UserListAdapter
+import com.example.tbank.presentation.recyclerUserList.UserListAdapter
 import com.example.tbank.presentation.customView.Badge
 import com.example.tbank.presentation.observe
 import dagger.hilt.android.AndroidEntryPoint

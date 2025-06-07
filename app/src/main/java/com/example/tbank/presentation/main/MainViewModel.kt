@@ -88,10 +88,11 @@ class MainViewModel @Inject constructor(
                         return@launch
                     }
                     is ResultWrapper.HttpError -> {
-                        _uiState.update {
-                            UiState.Error(expensesSumState.message ?: "Неизвестная ошибка 6")
-                        }
-                        return@launch
+//                        _uiState.update {
+//                            UiState.Error(expensesSumState.message ?: "Неизвестная ошибка 6")
+//                        }
+//                        return@launch
+                        state.expensesSum = 0
                     }
                 }
             }

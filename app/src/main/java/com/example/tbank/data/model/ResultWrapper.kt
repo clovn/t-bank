@@ -28,7 +28,10 @@ suspend fun <T> safeApiCall(dispatcher: CoroutineDispatcher, apiCall: suspend ()
                     ResultWrapper.HttpError(convertErrorBody(throwable), throwable.code())
                 }
                 else -> {
-                    Log.d("neizv", throwable.toString())
+                    Log.d("neizv", throwable.message.toString())
+                    throwable.stackTrace.forEach {
+                        Log.d("neizv", it?.toString() ?: "")
+                    }
                     ResultWrapper.Error("Неизвестная ошибка")
                 }
             }

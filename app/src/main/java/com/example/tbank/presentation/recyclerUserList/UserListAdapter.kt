@@ -1,4 +1,4 @@
-package com.example.tbank.presentation.createTrip.recycler
+package com.example.tbank.presentation.recyclerUserList
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

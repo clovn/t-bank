@@ -1,4 +1,4 @@
-package com.example.tbank.presentation.createTrip.recycler
+package com.example.tbank.presentation.recyclerUserList
 
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.tbank.databinding.ItemUserBinding

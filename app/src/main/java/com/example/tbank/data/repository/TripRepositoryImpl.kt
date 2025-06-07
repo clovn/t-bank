@@ -9,7 +9,9 @@ import javax.inject.Inject
 import com.example.tbank.data.model.safeApiCall
 import com.example.tbank.data.remote.TripApiService
 import com.example.tbank.domain.model.Category
+import com.example.tbank.domain.model.Trip
 import kotlinx.coroutines.Dispatchers
+import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import javax.inject.Singleton
 
@@ -70,11 +72,24 @@ class TripRepositoryImpl @Inject constructor(
     override suspend fun getActiveTrip() = safeApiCall(Dispatchers.IO) {
         val list = tripApiService.getActiveTrips()
         if(list.isNotEmpty()){
-            return@safeApiCall list[0]
+            return@safeApiCall list[0]?.let {
+                Trip(
+                    id = it.id,
+                    name = it.name,
+                    startDate = LocalDate.parse(it.startDate),
+                    endDate = LocalDate.parse(it.endDate),
+                    participantsCount = 3,
+                    budget = it.totalBudget
+                )
+            }
         } else {
             return@safeApiCall null
         }
     }
 
     override fun getTripBudget() = trip?.totalBudget ?: 1000000
+
+    override suspend fun getParticipants(tripId: Int) = safeApiCall(Dispatchers.IO) {
+        tripApiService.getParticipants(tripId)
+    }
 }

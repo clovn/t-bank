@@ -19,7 +19,6 @@ class CircleChart @JvmOverloads constructor(
     private var totalPercentage = 0f
     private var ringRadius = 0f
     private val ringThickness = 20.dp(context)
-    private val graySegment = Segment(100f, R.color.chart_background)
     private var fillGray = true
 
     private val segmentPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
@@ -56,10 +55,18 @@ class CircleChart @JvmOverloads constructor(
             startAngle += sweepAngle
         }
 
-        if (totalPercentage < 100 && fillGray) {
-            val remainingPercentage = 100 - totalPercentage
-            addSegment(graySegment.copy(percentage = remainingPercentage))
-        }
+        segmentPaint.color = context.getColor(R.color.chart_background)
+
+        canvas.drawArc(
+            width / 2f - ringRadius,
+            height / 2f - ringRadius,
+            width / 2f + ringRadius,
+            height / 2f + ringRadius,
+            startAngle,
+            (100 - totalPercentage)*3.6f,
+            false,
+            segmentPaint
+        )
     }
 
     fun addSegment(segment: Segment) {
@@ -79,7 +86,7 @@ class CircleChart @JvmOverloads constructor(
         invalidate()
     }
 
-    fun isFillGray(fillGray: Boolean){
+    fun setFillGray(fillGray: Boolean){
         this.fillGray = fillGray
         invalidate()
     }

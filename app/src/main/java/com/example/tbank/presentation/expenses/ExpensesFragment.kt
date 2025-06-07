@@ -21,6 +21,7 @@ import com.example.tbank.presentation.model.ExpenseView
 import com.example.tbank.presentation.model.Segment
 import com.example.tbank.presentation.observe
 import com.example.tbank.presentation.showError
+import com.example.tbank.presentation.сreateExpense.TRIP_ID_KEY
 import dagger.hilt.android.AndroidEntryPoint
 import dev.androidbroadcast.vbpd.viewBinding
 
@@ -53,7 +54,10 @@ class ExpensesFragment: Fragment(R.layout.fragment_expenses) {
         viewModel.expensesState.observe(viewLifecycleOwner) {state ->
             when(state){
                 is ExpensesState.Loading -> {
-
+                    binding.apply {
+                        chart.clearSegments()
+                        categoriesContainer.removeAllViews()
+                    }
                 }
                 is ExpensesState.Loaded -> {
                     setExpensesList(state.expensesList)
@@ -72,11 +76,18 @@ class ExpensesFragment: Fragment(R.layout.fragment_expenses) {
                 findNavController().navigateUp()
             }
 
-            arguments?.let {
-                tripBudget = it.getInt(TRIP_BUDGET)
+            arguments?.let {bundle ->
+                tripBudget = bundle.getInt(TRIP_BUDGET)
 
-                title.text = it.getString(TRIP_NAME)
+                title.text = bundle.getString(TRIP_NAME)
                 chartSubTitle.text = getString(R.string.chart_subtitle_format, formatMoney(tripBudget))
+
+                addExpensesFab.setOnClickListener {
+                        findNavController().navigate(R.id.action_to_fragment_create_expense, Bundle().apply {
+                            putInt(TRIP_ID_KEY, bundle.getLong(TRIP_ID).toInt())
+                        }
+                    )
+                }
             }
 
             expensesRv.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)

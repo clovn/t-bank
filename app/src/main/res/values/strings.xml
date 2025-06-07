@@ -63,4 +63,12 @@
     <string name="entertainment">Развлечения</string>
     <string name="insurance">Страховка</string>
     <string name="more">Остальное</string>
+    <string name="hint_sum">Сумма</string>
+    <string name="reject">Отклонить</string>
+    <string name="accept">Принять</string>
+    <string name="invite">Приглашение</string>
+    <string name="nameTv_format">%1$s %2$s</string>
+    <string name="iconTv_format">%1$s%2$s</string>
+    <string name="loading">Загрузка...</string>
+    <string name="invites">Приглашения</string>
 </resources>

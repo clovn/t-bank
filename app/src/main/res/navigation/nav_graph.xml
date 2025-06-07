@@ -72,4 +72,22 @@
         android:name="com.example.tbank.presentation.expenses.ExpensesFragment"
         android:label="fragment_expenses"
         tools:layout="@layout/fragment_expenses" />
+    <fragment
+        android:id="@+id/createExpenseFragment"
+        android:name="com.example.tbank.presentation.сreateExpense.CreateExpenseFragment"
+        android:label="CreateExpenseFragment"
+        tools:layout="@layout/fragment_create_expense"/>
+
+    <action
+        android:id="@+id/action_to_fragment_create_expense"
+        app:destination="@id/createExpenseFragment"/>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.tbank.presentation.profile.ProfileFragment"
+        android:label="ProfileFragment"
+        tools:layout="@layout/fragment_profile"/>
+
+    <action
+        android:id="@+id/action_to_fragment_profile"
+        app:destination="@id/profileFragment"/>
 </navigation>

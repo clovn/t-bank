@@ -51,8 +51,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:hint="@string/hint_login"
-        android:inputType="text"
+        android:hint="@string/hint_sum"
+        android:inputType="numberSigned"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/descriptionEt" />
@@ -90,25 +90,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="4dp"
         app:flexWrap="wrap"
         app:showDivider="middle">
 
     </com.google.android.flexbox.FlexboxLayout>
 
-    <ListView
-        android:id="@+id/listViewSuggestions"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/rvCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:background="#FFFFFF"
-        android:divider="@null"
-        android:dividerHeight="0dp"
-        app:layout_constraintTop_toBottomOf="@id/paidEt"
-        android:padding="8dp"
-        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/personContainer"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginHorizontal="16dp"/>
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="16dp"
+        android:elevation="16dp"
+        app:cardCornerRadius="32dp"
+        android:visibility="gone">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/participantsRv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            tools:listitem="@layout/item_user"/>
+    </androidx.cardview.widget.CardView>
 
     <Button
         android:id="@+id/addExpenseBtn"

@@ -8,4 +8,5 @@ interface ExpensesRepository {
 
     suspend fun getTripExpenses(tripId: Long): ResultWrapper<List<Expense>>
 
+    suspend fun saveExpense(tripId: Int, expense: Expense, userId: Int): ResultWrapper<Unit>
 }

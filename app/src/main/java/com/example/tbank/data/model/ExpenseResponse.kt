@@ -1,20 +1,18 @@
 package com.example.tbank.data.model
 
-data class ExpenseResponse(
+import com.example.tbank.domain.model.User
+
+data class Expense(
     val id: Long,
+    val categoryId: Int,
     val amount: Int,
-    val name: String,
-    val author: Author,
-    val category: Category
+    val description: String,
+    val payerId: Int,
+    val phoneNumbersOfDebtors: List<String>?
 )
 
-data class Author(
-    val id: Long,
-    val username: String,
-    val firstName: String,
-)
 
-data class Category(
-    val id: Long,
-    val name: String,
+data class ExpensesResponse(
+    val actualExpenses: List<Expense>,
+    val payers: List<User>
 )

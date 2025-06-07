@@ -5,5 +5,6 @@ data class Expense(
     val name: String,
     val type: CategoryType,
     val amount: Int,
-    val authorName: String
+    val authorName: String,
+    val debtors: List<User>?
 )

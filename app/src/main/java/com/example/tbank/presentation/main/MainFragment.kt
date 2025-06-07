@@ -16,6 +16,7 @@ import com.example.tbank.presentation.expenses.TRIP_NAME
 import com.example.tbank.presentation.formatMoney
 import com.example.tbank.presentation.formatPhoneNumber
 import com.example.tbank.presentation.observe
+import com.example.tbank.presentation.сreateExpense.TRIP_ID_KEY
 import dagger.hilt.android.AndroidEntryPoint
 import dev.androidbroadcast.vbpd.viewBinding
 
@@ -50,11 +51,20 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 })
             }
             addExpenses.setOnClickListener {
-                //TODO navigate to add expenses
+                findNavController().navigate(R.id.action_to_fragment_create_expense, Bundle().apply {
+                        trip?.let {
+                            putInt(TRIP_ID_KEY, it.id.toInt())
+                        }
+                    }
+                )
             }
 
             createTripBtn.setOnClickListener {
                 findNavController().navigate(R.id.action_to_createTripInfoFragment)
+            }
+
+            nameTv.setOnClickListener {
+                findNavController().navigate(R.id.action_to_fragment_profile)
             }
         }
     }
@@ -102,7 +112,9 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 tripPeopleCountTv.text = trip.participantsCount.toString()
                 tripBudgetTv.text = getString(R.string.format_money, formatMoney(trip.budget))
                 expenseTv.text = getString(R.string.format_money, formatMoney(expensesSum))
-                tripExpensesPb.setProgress(expensesSum * 100 / trip.budget)
+                if(trip.budget != 0){
+                    tripExpensesPb.setProgress(expensesSum * 100 / trip.budget)
+                }
 
                 tripInfo.visibility = View.VISIBLE
                 tripExpenses.visibility = View.VISIBLE
