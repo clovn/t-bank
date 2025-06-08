@@ -92,4 +92,8 @@ class TripRepositoryImpl @Inject constructor(
     override suspend fun getParticipants(tripId: Int) = safeApiCall(Dispatchers.IO) {
         tripApiService.getParticipants(tripId)
     }
+
+    override suspend fun invitationAction(tripId: Int, isAccept: Boolean) = safeApiCall(Dispatchers.IO) {
+        tripApiService.invitationAction(tripId, isAccept)
+    }
 }

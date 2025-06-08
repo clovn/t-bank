@@ -4,6 +4,7 @@ plugins {
     id("com.google.devtools.ksp")
     id("com.google.dagger.hilt.android")
     id("io.gitlab.arturbosch.detekt")
+    //id("com.google.gms.google-services")
 }
 
 android {
@@ -77,4 +78,6 @@ dependencies {
 
     implementation(libs.androidx.datastore.preferences)
     implementation (libs.flexbox)
+
+    //implementation(libs.firebase.messaging)
 }

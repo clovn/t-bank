@@ -71,4 +71,5 @@
     <string name="iconTv_format">%1$s%2$s</string>
     <string name="loading">Загрузка...</string>
     <string name="invites">Приглашения</string>
+    <string name="channel_name">channel</string>
 </resources>

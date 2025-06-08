@@ -17,4 +17,8 @@ class UserRepositoryImpl @Inject constructor(
         userApiService.getUser(id)
     }
 
+    override suspend fun registerFirebaseToken(token: String) = safeApiCall(Dispatchers.IO) {
+        userApiService.registerFirebaseToken(token)
+    }
+
 }

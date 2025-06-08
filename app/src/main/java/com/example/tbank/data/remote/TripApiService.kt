@@ -6,8 +6,10 @@ import com.example.tbank.data.model.TripResponse
 import com.example.tbank.domain.model.User
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface TripApiService {
     @GET("trip?status=ACTIVE")
@@ -18,4 +20,7 @@ interface TripApiService {
 
     @GET("trip/{tripId}/participants")
     suspend fun getParticipants(@Path("tripId") tripId: Int): List<User>
+
+    @PATCH("trip/{tripId}/participants/invitation")
+    suspend fun invitationAction(@Path("tripId") tripId: Int, @Query("invitation") isAccept: Boolean)
 }

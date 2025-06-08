@@ -7,4 +7,6 @@ interface UserRepository {
     suspend fun getUsersByPhoneNumber(number: String): ResultWrapper<List<User>>
   
     suspend fun getUser(id: Int): ResultWrapper<User>
+
+    suspend fun registerFirebaseToken(token: String): ResultWrapper<Unit>
 }

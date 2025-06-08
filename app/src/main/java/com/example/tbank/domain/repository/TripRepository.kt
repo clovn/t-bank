@@ -18,4 +18,6 @@ interface TripRepository {
     fun getTripBudget(): Int
 
     suspend fun getParticipants(tripId: Int): ResultWrapper<List<User>>
+
+    suspend fun invitationAction(tripId: Int, isAccept: Boolean): ResultWrapper<Unit>
 }

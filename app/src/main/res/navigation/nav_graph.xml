@@ -90,4 +90,11 @@
     <action
         android:id="@+id/action_to_fragment_profile"
         app:destination="@id/profileFragment"/>
+    <fragment
+        android:id="@+id/inviteFragment"
+        android:name="com.example.tbank.presentation.invite.InviteFragment"
+        android:label="InviteFragment" />
+    <action
+        android:id="@+id/action_to_invite_fragment"
+        app:destination="@id/inviteFragment"/>
 </navigation>
