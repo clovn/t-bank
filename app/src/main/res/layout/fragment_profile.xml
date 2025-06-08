@@ -16,7 +16,7 @@
         android:backgroundTint="@color/transparent"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        app:tint="@color/black"/>
+        app:tint="?attr/colorOnBackground"/>
 
     <TextView
         android:id="@+id/icon"
