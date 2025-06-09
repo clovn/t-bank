@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tbank.R
 import com.example.tbank.databinding.FragmentMainBinding
 import com.example.tbank.domain.model.User
+import com.example.tbank.presentation.dateFormat
 import com.example.tbank.presentation.expenses.TRIP_BUDGET
 import com.example.tbank.presentation.expenses.TRIP_ID
 import com.example.tbank.presentation.expenses.TRIP_NAME
@@ -122,11 +123,11 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                     TripInfoView(
                         it.trip.id,
                         it.trip.name,
-                        getString(R.string.date_format, it.trip.startDate, it.trip.endDate),
+                        getString(R.string.date_format, dateFormat(it.trip.startDate), dateFormat(it.trip.endDate)),
                         it.trip.participantsCount,
                         it.trip.budget,
-                        formatMoney(it.trip.budget),
-                        formatMoney(it.expensesSum),
+                        getString(R.string.format_money, formatMoney(it.trip.budget)),
+                        getString(R.string.format_money, formatMoney(it.expensesSum)),
                         it.expensesSum*100 / it.trip.budget
                     )
                 })

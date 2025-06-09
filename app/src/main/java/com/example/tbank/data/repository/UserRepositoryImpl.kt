@@ -33,7 +33,7 @@ class UserRepositoryImpl @Inject constructor(
                 it.tripId,
                 NotificationType.valueOf(it.type)
             )
-        }
+        }.reversed()
     }
 
     override suspend fun readNotifications(notificationsId: List<Int>) = safeApiCall(Dispatchers.IO) {

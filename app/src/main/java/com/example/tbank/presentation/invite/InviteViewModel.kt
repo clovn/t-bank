@@ -42,7 +42,7 @@ class InviteViewModel @Inject constructor(
                 is ResultWrapper.Success -> {
                     when(readNotificationsUseCase.invoke(listOf(id))) {
                         is ResultWrapper.Success -> _state.update { InviteState.Success }
-                        else -> { InviteState.Idle }
+                        else -> _state.update { InviteState.Idle }
                     }
                 }
                 is ResultWrapper.Error -> {
