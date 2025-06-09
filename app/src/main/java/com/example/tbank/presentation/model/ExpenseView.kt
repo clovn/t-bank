@@ -7,6 +7,6 @@ data class ExpenseView(
     val name: String,
     @DrawableRes val typeDrawable: Int,
     @ColorInt val typeColorRes: Int,
-    val authorName: String,
+    val names: String,
     val amount: String
 )

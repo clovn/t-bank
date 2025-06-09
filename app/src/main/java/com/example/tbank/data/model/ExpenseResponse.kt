@@ -16,3 +16,7 @@ data class ExpensesResponse(
     val actualExpenses: List<Expense>,
     val payers: List<User>
 )
+
+data class ExpensesPlannedResponse(
+    val plannedExpenses: List<Expense>
+)

@@ -2,6 +2,7 @@ package com.example.tbank.domain.register
 
 import com.example.tbank.data.model.LoginResponse
 import com.example.tbank.data.model.ResultWrapper
+import com.example.tbank.domain.fcm.RegisterFcmTokenUseCase
 import com.example.tbank.domain.model.User
 import com.example.tbank.domain.repository.TokensRepository
 import com.example.tbank.domain.repository.AuthRepository
@@ -10,7 +11,8 @@ import javax.inject.Inject
 
 class RegisterUseCase @Inject constructor(
     private val authRepository: AuthRepository,
-    private val tokensRepository: TokensRepository
+    private val tokensRepository: TokensRepository,
+    private val registerFcmTokenUseCase: RegisterFcmTokenUseCase
 ) {
 
     suspend fun invoke(
@@ -25,6 +27,8 @@ class RegisterUseCase @Inject constructor(
                 tokensRepository.saveAccessToken(result.value.jwtTokenPairDto.accessToken)
                 tokensRepository.saveRefreshToken(result.value.jwtTokenPairDto.refreshToken)
                 tokensRepository.saveId(result.value.userDto.id)
+
+                registerFcmTokenUseCase.invoke(tokensRepository.getFcmToken()!!)
 
                 ResultWrapper.Success(
                     User(

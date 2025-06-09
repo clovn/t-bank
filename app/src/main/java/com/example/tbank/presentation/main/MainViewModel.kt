@@ -6,8 +6,8 @@ import com.example.tbank.data.model.ResultWrapper
 import com.example.tbank.domain.main.GetTripExpensesSumUseCase
 import com.example.tbank.domain.main.GetTripInfoUseCase
 import com.example.tbank.domain.main.GetUserInfoUseCase
-import com.example.tbank.domain.model.Trip
 import com.example.tbank.domain.model.User
+import com.example.tbank.presentation.model.TripInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -19,8 +19,7 @@ sealed class UiState {
     data object Loading: UiState()
     data class Loaded(
         var user: User? = null,
-        var trip: Trip? = null,
-        var expensesSum: Int? = null
+        var trips: List<TripInfo> = emptyList()
     ): UiState()
     data class Error(val message: String): UiState()
 }
@@ -47,12 +46,12 @@ class MainViewModel @Inject constructor(
                     state.user = userState.value
                 }
                 is ResultWrapper.Error -> {
-                    _uiState.update { UiState.Error(userState.message ?: "Неизвестная ошибка 1") }
+                    _uiState.update { UiState.Error(userState.message ?: "Неизвестная ошибка") }
                     return@launch
                 }
                 is ResultWrapper.HttpError -> {
                     _uiState.update {
-                        UiState.Error(userState.message ?: "Неизвестная ошибка 2")
+                        UiState.Error(userState.message ?: "Неизвестная ошибка")
                     }
                     return@launch
                 }
@@ -60,40 +59,27 @@ class MainViewModel @Inject constructor(
 
             when(val tripState = getTripInfoUseCase.invoke()) {
                 is ResultWrapper.Success -> {
-                    state.trip = tripState.value
+                    state.trips = tripState.value.map {
+                        TripInfo(
+                            trip = it,
+                            expensesSum = when(val result = getTripExpensesSumUseCase.invoke(it.id)) {
+                                is ResultWrapper.Success -> result.value
+                                else -> 0
+                            }
+                        )
+                    }
                 }
                 is ResultWrapper.Error -> {
                     _uiState.update {
-                        UiState.Error(tripState.message ?: "Неизвестная ошибка 3")
+                        UiState.Error(tripState.message ?: "Неизвестная ошибка")
                     }
                     return@launch
                 }
                 is ResultWrapper.HttpError -> {
                     _uiState.update {
-                        UiState.Error(tripState.message ?: "Неизвестная ошибка 4")
+                        UiState.Error(tripState.message ?: "Неизвестная ошибка")
                     }
                     return@launch
-                }
-            }
-
-            state.trip?.let {
-                when(val expensesSumState = getTripExpensesSumUseCase.invoke(it.id)){
-                    is ResultWrapper.Success -> {
-                        state.expensesSum = expensesSumState.value
-                    }
-                    is ResultWrapper.Error -> {
-                        _uiState.update {
-                            UiState.Error(expensesSumState.message ?: "Неизвестная ошибка 5")
-                        }
-                        return@launch
-                    }
-                    is ResultWrapper.HttpError -> {
-//                        _uiState.update {
-//                            UiState.Error(expensesSumState.message ?: "Неизвестная ошибка 6")
-//                        }
-//                        return@launch
-                        state.expensesSum = 0
-                    }
                 }
             }
 

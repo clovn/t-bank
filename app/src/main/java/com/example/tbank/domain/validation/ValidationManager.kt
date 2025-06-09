@@ -24,7 +24,7 @@ class ValidationManager @Inject constructor() {
     }
 
     fun isValidTripName(tripName: String): Boolean {
-        val regex = "^[ a-zA-Zа-яА-Я0-9_]{3,50}$".toRegex()
+        val regex = "^[ a-zA-Zа-яА-Я0-9_]{5,50}$".toRegex()
         return regex.matches(tripName)
     }
 

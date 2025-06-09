@@ -34,11 +34,11 @@ class InviteFragment: Fragment(R.layout.fragment_invitation) {
                 inviteText.text = bundle.getString("message")
 
                 acceptInviteButton.setOnClickListener {
-                    viewModel.invite(bundle.getInt("tripId"), true)
+                    viewModel.invite(bundle.getInt("id"), bundle.getInt("tripId"), true)
                 }
 
                 rejectInviteButton.setOnClickListener {
-                    viewModel.invite(bundle.getInt("tripId"), false)
+                    viewModel.invite(bundle.getInt("id"), bundle.getInt("tripId"), false)
                 }
             }
         }

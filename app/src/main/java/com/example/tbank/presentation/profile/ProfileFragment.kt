@@ -28,10 +28,6 @@ class ProfileFragment: Fragment(R.layout.fragment_profile) {
 
     private fun initViews(){
         binding.apply {
-            invites.setOnClickListener {
-                //TODO navigate
-            }
-
             logout.setOnClickListener {
                 viewModel.logout()
             }

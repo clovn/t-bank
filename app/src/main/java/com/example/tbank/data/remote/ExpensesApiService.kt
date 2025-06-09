@@ -2,6 +2,7 @@ package com.example.tbank.data.remote
 
 import com.example.tbank.data.model.CategoryRequest
 import com.example.tbank.data.model.ExpenseRequest
+import com.example.tbank.data.model.ExpensesPlannedResponse
 import com.example.tbank.data.model.ExpensesResponse
 import com.example.tbank.data.model.ExpensesSum
 import retrofit2.http.Body
@@ -15,6 +16,9 @@ interface ExpensesApiService {
 
     @GET("trip/{tripId}/expenses?status=ACTUAL")
     suspend fun getTripExpenses(@Path("tripId") tripId: Long): ExpensesResponse
+
+    @GET("trip/{tripId}/expenses?status=PLANNED")
+    suspend fun getTripPlannedExpenses(@Path("tripId") tripId: Int): ExpensesPlannedResponse
 
     @POST("trip/{tripId}/expenses")
     suspend fun saveExpense(@Path("tripId") tripId: Int, @Body categoryRequest: ExpenseRequest)

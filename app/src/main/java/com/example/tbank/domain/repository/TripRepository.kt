@@ -11,7 +11,7 @@ interface TripRepository {
 
     suspend fun saveParticipants(participants: Set<User>)
 
-    suspend fun getActiveTrip(): ResultWrapper<Trip?>
+    suspend fun getActiveTrip(): ResultWrapper<List<Trip>>
 
     suspend fun saveTrip(categories: List<Category>): ResultWrapper<Unit>
 

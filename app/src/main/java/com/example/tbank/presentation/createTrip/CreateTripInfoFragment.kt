@@ -1,6 +1,5 @@
 package com.example.tbank.presentation.createTrip
 
-import android.icu.util.Calendar
 import android.os.Bundle
 import android.view.View
 import androidx.core.util.Pair
@@ -12,7 +11,6 @@ import com.example.tbank.R
 import com.example.tbank.databinding.FragmentCreateTripInfoBinding
 import com.example.tbank.presentation.formatDate
 import com.example.tbank.presentation.observe
-import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
 import dev.androidbroadcast.vbpd.viewBinding
@@ -88,12 +86,6 @@ class CreateTripInfoFragment: Fragment(R.layout.fragment_create_trip_info) {
         val picker = MaterialDatePicker
             .Builder
             .dateRangePicker()
-            .setCalendarConstraints(
-                CalendarConstraints.Builder()
-                    .setStart(Calendar.getInstance().timeInMillis)
-                    .setEnd(Calendar.getInstance().timeInMillis)
-                    .build()
-            )
             .setTitleText("Выберите дату поездки")
             .build()
 

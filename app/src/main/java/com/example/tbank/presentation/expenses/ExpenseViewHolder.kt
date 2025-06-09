@@ -15,7 +15,7 @@ class ExpenseViewHolder(
             ImageViewCompat.setImageTintList(iconBackIv, ColorStateList.valueOf(expense.typeColorRes))
             iconIv.setImageResource(expense.typeDrawable)
             categoryTv.text = expense.name
-            subtitleTv.text = expense.authorName
+            subtitleTv.text = expense.names
             priceTv.text = expense.amount
         }
     }

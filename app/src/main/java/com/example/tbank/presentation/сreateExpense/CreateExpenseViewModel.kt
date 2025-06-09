@@ -4,10 +4,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tbank.data.model.ResultWrapper
 import com.example.tbank.domain.expenses.GetParticipantsUseCase
+import com.example.tbank.domain.expenses.GetTripPlannedExpensesUseCase
 import com.example.tbank.domain.expenses.SaveExpenseUseCase
 import com.example.tbank.domain.model.CategoryType
 import com.example.tbank.domain.model.Expense
 import com.example.tbank.domain.model.User
+import com.example.tbank.presentation.mapper.mapCategoryTypeText
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -26,7 +28,8 @@ sealed class AddExpenseState{
 @HiltViewModel
 class CreateExpenseViewModel @Inject constructor(
     private val getParticipantsUseCase: GetParticipantsUseCase,
-    private val saveExpenseUseCase: SaveExpenseUseCase
+    private val saveExpenseUseCase: SaveExpenseUseCase,
+    private val getTripPlannedExpensesUseCase: GetTripPlannedExpensesUseCase
 ): ViewModel() {
 
     private val _uiState = MutableStateFlow<AddExpenseState>(AddExpenseState.Idle)
@@ -34,6 +37,9 @@ class CreateExpenseViewModel @Inject constructor(
 
     private val _errorFlow = MutableSharedFlow<String>()
     val errorFlow:SharedFlow<String> = _errorFlow
+
+    private val _categories = MutableStateFlow<List<Int>>(emptyList())
+    val categories:StateFlow<List<Int>> = _categories
 
     private var participants = listOf<User>()
 
@@ -66,6 +72,24 @@ class CreateExpenseViewModel @Inject constructor(
         }
     }
 
+    fun fetchCategories(tripId: Int){
+        viewModelScope.launch {
+            when(val result = getTripPlannedExpensesUseCase.invoke(tripId)){
+                is ResultWrapper.Success -> {
+                    _categories.update {
+                        result.value.map {type ->
+                            mapCategoryTypeText(type)
+                        }
+                    }
+                }
+                else -> {
+
+                }
+            }
+        }
+    }
+
+
     fun fetchParticipants(tripId: Int) {
         viewModelScope.launch {
             when(val result = getParticipantsUseCase.invoke(tripId)){
@@ -79,33 +103,13 @@ class CreateExpenseViewModel @Inject constructor(
                 is ResultWrapper.HttpError -> _errorFlow.emit("${result.message} - ${result.code}")
             }
         }
-//        participants = listOf(
-//            User(
-//                id = 0,
-//                firstName = "Ayrat",
-//                lastName = "SOME",
-//                number = "7999999999"
-//            ),
-//            User(
-//                id = 1,
-//                firstName = "John",
-//                lastName = "Doe",
-//                number = "82394324"
-//            ),
-//            User(
-//                id = 2,
-//                firstName = "Damin",
-//                lastName = "awdawd",
-//                number = "283742394"
-//            )
-//        )
     }
 
     fun getMatchedParticipants(query: String):List<User> {
-        if(query.isEmpty()){
-            return emptyList()
+        return if(query.isEmpty()){
+            emptyList()
         } else {
-            return participants.filter { user ->
+            participants.filter { user ->
                 "${user.firstName} ${user.lastName}".lowercase().contains(query.lowercase())
             }
         }

@@ -13,7 +13,7 @@ import retrofit2.http.Query
 
 interface TripApiService {
     @GET("trip?status=ACTIVE")
-    suspend fun getActiveTrips(): List<TripResponse?>
+    suspend fun getActiveTrips(): List<TripResponse>
 
     @POST("trip")
     suspend fun createTrip(@Body tripRequest: TripRequest): TripIdResponse

@@ -10,4 +10,6 @@ interface TokensRepository {
     suspend fun clearTokens()
     suspend fun saveId(id: Int)
     suspend fun getId(): Int?
+    suspend fun saveFcmToken(fcmToken: String)
+    suspend fun getFcmToken(): String?
 }

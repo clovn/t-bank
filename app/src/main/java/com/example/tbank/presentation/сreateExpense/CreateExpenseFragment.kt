@@ -1,6 +1,7 @@
 package com.example.tbank.presentation.сreateExpense
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import androidx.core.widget.addTextChangedListener
@@ -36,7 +37,9 @@ class CreateExpenseFragment: Fragment(R.layout.fragment_create_expense) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         arguments?.let {
-            viewModel.fetchParticipants(it.getInt(TRIP_ID_KEY))
+            val tripId = it.getInt(TRIP_ID_KEY)
+            viewModel.fetchParticipants(tripId)
+            viewModel.fetchCategories(tripId)
         }
 
         initViews()
@@ -49,10 +52,12 @@ class CreateExpenseFragment: Fragment(R.layout.fragment_create_expense) {
                 findNavController().navigateUp()
             }
 
-            val adapter = ArrayAdapter.createFromResource(
+            val adapter = ArrayAdapter(
                 requireContext(),
-                R.array.categories, R.layout.spinner_item
+                R.layout.spinner_item,
+                viewModel.categories.value.map { str -> getString(str) }
             )
+
             adapter.setDropDownViewResource(R.layout.spinner_item)
             spinnerCategory.adapter = adapter
 
@@ -106,6 +111,18 @@ class CreateExpenseFragment: Fragment(R.layout.fragment_create_expense) {
 
         viewModel.errorFlow.observe(viewLifecycleOwner){
             showError(it)
+        }
+
+        viewModel.categories.observe(viewLifecycleOwner) {
+            Log.d("DEBUG", it.map { str -> getString(str) }.toString())
+            val adapter = ArrayAdapter(
+                requireContext(),
+                R.layout.spinner_item,
+                it.map { str -> getString(str) }
+            )
+
+            adapter.setDropDownViewResource(R.layout.spinner_item)
+            binding.spinnerCategory.adapter = adapter
         }
     }
 }

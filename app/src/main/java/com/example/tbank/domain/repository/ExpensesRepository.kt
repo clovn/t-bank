@@ -1,6 +1,7 @@
 package com.example.tbank.domain.repository
 
 import com.example.tbank.data.model.ResultWrapper
+import com.example.tbank.domain.model.CategoryType
 import com.example.tbank.domain.model.Expense
 
 interface ExpensesRepository {
@@ -9,4 +10,6 @@ interface ExpensesRepository {
     suspend fun getTripExpenses(tripId: Long): ResultWrapper<List<Expense>>
 
     suspend fun saveExpense(tripId: Int, expense: Expense, userId: Int): ResultWrapper<Unit>
+
+    suspend fun getTripPlannedExpenses(tripId: Int): ResultWrapper<List<CategoryType>>
 }

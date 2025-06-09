@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tbank.data.model.ResultWrapper
 import com.example.tbank.domain.invite.InviteAcceptOrRejectUseCase
+import com.example.tbank.domain.notification.ReadNotificationsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,7 +22,8 @@ sealed class InviteState{
 
 @HiltViewModel
 class InviteViewModel @Inject constructor(
-    private val inviteAcceptOrRejectUseCase: InviteAcceptOrRejectUseCase
+    private val inviteAcceptOrRejectUseCase: InviteAcceptOrRejectUseCase,
+    private val readNotificationsUseCase: ReadNotificationsUseCase
 ): ViewModel() {
 
     private val _state = MutableStateFlow<InviteState>(InviteState.Idle)
@@ -31,13 +33,18 @@ class InviteViewModel @Inject constructor(
     val error:SharedFlow<String> = _errorFlow
 
 
-    fun invite(tripId: Int, isAccept: Boolean){
+    fun invite(id: Int, tripId: Int, isAccept: Boolean){
         _state.update {
             InviteState.Loading
         }
         viewModelScope.launch {
             when(val result = inviteAcceptOrRejectUseCase.invoke(tripId, isAccept)){
-                is ResultWrapper.Success -> _state.update { InviteState.Success }
+                is ResultWrapper.Success -> {
+                    when(readNotificationsUseCase.invoke(listOf(id))) {
+                        is ResultWrapper.Success -> _state.update { InviteState.Success }
+                        else -> { InviteState.Idle }
+                    }
+                }
                 is ResultWrapper.Error -> {
                     _errorFlow.emit("${result.message}")
                     _state.update { InviteState.Idle }

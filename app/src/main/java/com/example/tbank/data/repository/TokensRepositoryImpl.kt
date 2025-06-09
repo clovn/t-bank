@@ -62,10 +62,21 @@ class TokensRepositoryImpl @Inject constructor(
         preferences -> preferences[ID_KEY]?.toInt()
     }.firstOrNull()
 
-    companion object {
-        private val ACCESS_TOKEN_KEY = stringPreferencesKey("access_token")
-        private val REFRESH_TOKEN_KEY = stringPreferencesKey("refresh_token")
-        private val ID_KEY = stringPreferencesKey("id_key")
-        private const val PREFS_NAME = "token_prefs"
+    override suspend fun saveFcmToken(fcmToken: String) {
+        context.dataStore.edit { preferences ->
+            preferences[FCM_TOKEN_KEY] = fcmToken
+        }
+    }
+
+    override suspend fun getFcmToken() = context.dataStore.data.map {
+            preferences -> preferences[FCM_TOKEN_KEY]
+    }.firstOrNull()
+
+    private companion object {
+        val ACCESS_TOKEN_KEY = stringPreferencesKey("access_token")
+        val REFRESH_TOKEN_KEY = stringPreferencesKey("refresh_token")
+        val ID_KEY = stringPreferencesKey("id_key")
+        const val PREFS_NAME = "token_prefs"
+        val FCM_TOKEN_KEY = stringPreferencesKey("fcm_token")
     }
 }

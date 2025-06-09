@@ -97,4 +97,12 @@
     <action
         android:id="@+id/action_to_invite_fragment"
         app:destination="@id/inviteFragment"/>
+    <fragment
+        android:id="@+id/notificationsFragment"
+        android:name="com.example.tbank.presentation.notification.NotificationsFragment"
+        android:label="NotificationsFragment" />
+
+    <action
+        android:id="@+id/action_to_notifications_fragment"
+        app:destination="@id/notificationsFragment"/>
 </navigation>

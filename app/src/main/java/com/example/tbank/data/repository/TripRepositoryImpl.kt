@@ -71,19 +71,15 @@ class TripRepositoryImpl @Inject constructor(
 
     override suspend fun getActiveTrip() = safeApiCall(Dispatchers.IO) {
         val list = tripApiService.getActiveTrips()
-        if(list.isNotEmpty()){
-            return@safeApiCall list[0]?.let {
-                Trip(
-                    id = it.id,
-                    name = it.name,
-                    startDate = LocalDate.parse(it.startDate),
-                    endDate = LocalDate.parse(it.endDate),
-                    participantsCount = 3,
-                    budget = it.totalBudget
-                )
-            }
-        } else {
-            return@safeApiCall null
+        return@safeApiCall list.map {
+            Trip(
+                id = it.id,
+                name = it.name,
+                startDate = LocalDate.parse(it.startDate),
+                endDate = LocalDate.parse(it.endDate),
+                participantsCount = tripApiService.getParticipants(it.id.toInt()).size,
+                budget = it.totalBudget
+            )
         }
     }
 

@@ -1,27 +1,26 @@
 package com.example.tbank.presentation.main
 
 import android.Manifest
-import android.app.Activity
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.view.View
-import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tbank.R
 import com.example.tbank.databinding.FragmentMainBinding
-import com.example.tbank.domain.model.Trip
 import com.example.tbank.domain.model.User
-import com.example.tbank.presentation.dateFormat
 import com.example.tbank.presentation.expenses.TRIP_BUDGET
 import com.example.tbank.presentation.expenses.TRIP_ID
 import com.example.tbank.presentation.expenses.TRIP_NAME
 import com.example.tbank.presentation.formatMoney
 import com.example.tbank.presentation.formatPhoneNumber
+import com.example.tbank.presentation.model.TripInfo
+import com.example.tbank.presentation.model.TripInfoView
 import com.example.tbank.presentation.observe
 import com.example.tbank.presentation.сreateExpense.TRIP_ID_KEY
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,7 +31,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     private val binding: FragmentMainBinding by viewBinding(FragmentMainBinding::bind)
     private val mainViewModel: MainViewModel by viewModels()
-    private var trip: Trip? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -57,25 +55,26 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private fun initViews() {
         binding.apply {
             notificationBtn.setOnClickListener {
-                //TODO navigate to notifications screen
+                findNavController().navigate(R.id.action_to_notifications_fragment)
             }
-            tripInfo.setOnClickListener {
-                findNavController().navigate(R.id.action_to_expenses_fragment, Bundle().apply {
-                    trip?.let {
-                        putString(TRIP_NAME, it.name)
-                        putLong(TRIP_ID, it.id)
-                        putInt(TRIP_BUDGET, it.budget)
-                    }
-                })
-            }
-            addExpenses.setOnClickListener {
-                findNavController().navigate(R.id.action_to_fragment_create_expense, Bundle().apply {
-                        trip?.let {
-                            putInt(TRIP_ID_KEY, it.id.toInt())
-                        }
-                    }
-                )
-            }
+
+            tripsRv.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            tripsRv.adapter = TripsAdapter(
+                emptyList(),
+                { id, name, budget ->
+                    findNavController().navigate(R.id.action_to_expenses_fragment, Bundle().apply {
+                        putString(TRIP_NAME, name)
+                        putLong(TRIP_ID, id)
+                        putInt(TRIP_BUDGET, budget)
+                    })
+                },
+                {id ->
+                    findNavController().navigate(R.id.action_to_fragment_create_expense, Bundle().apply {
+                        putInt(TRIP_ID_KEY, id.toInt())
+                    })
+                }
+            )
+
 
             createTripBtn.setOnClickListener {
                 findNavController().navigate(R.id.action_to_createTripInfoFragment)
@@ -97,8 +96,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 }
                 is UiState.Loaded -> {
                     hideShimmer()
-                    trip = state.trip
-                    showContent(state.trip, state.user, state.expensesSum)
+                    showContent(state.trips, state.user)
                 }
                 is UiState.Error -> {
                     hideShimmer()
@@ -108,35 +106,33 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         }
     }
 
-    private fun showContent(trip: Trip?, user: User?, expensesSum: Int?) {
+    private fun showContent(trips: List<TripInfo>, user: User?) {
         binding.apply {
             content.visibility = View.VISIBLE
-            tripInfo.visibility = View.GONE
-            tripExpenses.visibility = View.GONE
-            addExpenses.visibility = View.GONE
 
             user?.let {
                 nameTv.text = getString(R.string.name_format, user.firstName, user.lastName)
                 numberTv.text = formatPhoneNumber(user.number)
             } ?: return
 
-            if(trip != null && expensesSum != null){
-                tripNameTv.text = trip.name
-                tripDateTv.text = getString(
-                    R.string.date_format,
-                    dateFormat(trip.startDate),
-                    dateFormat(trip.endDate)
-                )
-                tripPeopleCountTv.text = trip.participantsCount.toString()
-                tripBudgetTv.text = getString(R.string.format_money, formatMoney(trip.budget))
-                expenseTv.text = getString(R.string.format_money, formatMoney(expensesSum))
-                if(trip.budget != 0){
-                    tripExpensesPb.setProgress(expensesSum * 100 / trip.budget)
-                }
-
-                tripInfo.visibility = View.VISIBLE
-                tripExpenses.visibility = View.VISIBLE
-                addExpenses.visibility = View.VISIBLE
+            if(trips.isNotEmpty()){
+                noTrips.visibility = View.GONE
+                tripsRv.visibility = View.VISIBLE
+                (tripsRv.adapter as TripsAdapter).updateList(trips.map {
+                    TripInfoView(
+                        it.trip.id,
+                        it.trip.name,
+                        getString(R.string.date_format, it.trip.startDate, it.trip.endDate),
+                        it.trip.participantsCount,
+                        it.trip.budget,
+                        formatMoney(it.trip.budget),
+                        formatMoney(it.expensesSum),
+                        it.expensesSum*100 / it.trip.budget
+                    )
+                })
+            } else {
+                noTrips.visibility = View.VISIBLE
+                tripsRv.visibility = View.GONE
             }
         }
     }

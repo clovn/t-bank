@@ -1,6 +1,7 @@
 package com.example.tbank.domain.login
 
 import com.example.tbank.data.model.ResultWrapper
+import com.example.tbank.domain.fcm.RegisterFcmTokenUseCase
 import com.example.tbank.domain.model.User
 import com.example.tbank.domain.repository.TokensRepository
 import com.example.tbank.domain.repository.AuthRepository
@@ -8,7 +9,8 @@ import javax.inject.Inject
 
 class LoginUseCase @Inject constructor(
     private val authRepository: AuthRepository,
-    private val tokensRepository: TokensRepository
+    private val tokensRepository: TokensRepository,
+    private val registerFcmTokenUseCase: RegisterFcmTokenUseCase
 ) {
 
     suspend fun invoke(number: String, password: String): ResultWrapper<User> {
@@ -17,6 +19,8 @@ class LoginUseCase @Inject constructor(
                 tokensRepository.saveAccessToken(response.value.jwtTokenPairDto.accessToken)
                 tokensRepository.saveRefreshToken(response.value.jwtTokenPairDto.refreshToken)
                 tokensRepository.saveId(response.value.userDto.id)
+
+                registerFcmTokenUseCase.invoke(tokensRepository.getFcmToken()!!)
 
                 ResultWrapper.Success(
                     User(

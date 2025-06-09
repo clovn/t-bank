@@ -1,6 +1,7 @@
 package com.example.tbank.presentation.expenses
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -98,11 +99,14 @@ class ExpensesFragment: Fragment(R.layout.fragment_expenses) {
     private fun setExpensesList(expensesList: List<Expense>) {
         binding.apply {
             expensesRv.adapter = ExpenseAdapter(expensesList.map { expense ->
+                Log.d("DEBUG", ((expense.debtors?.map { user -> user.firstName }
+                    ?: (emptyList<String>() + listOf(expense.authorName)))).joinToString(", "))
                 ExpenseView(
                     name = expense.name,
                     typeDrawable = mapCategoryTypeDrawable(expense.type),
                     typeColorRes = ContextCompat.getColor(requireContext(), mapCategoryTypeColor(expense.type)),
-                    authorName = expense.authorName,
+                    names = ((expense.debtors?.map { user -> user.firstName }
+                        ?: (emptyList<String>() + listOf(expense.authorName)))).joinToString(", "),
                     amount = getString(R.string.format_expense, formatMoney(expense.amount))
                 )
             })

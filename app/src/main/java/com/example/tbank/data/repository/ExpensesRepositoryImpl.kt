@@ -29,7 +29,7 @@ class ExpensesRepositoryImpl @Inject constructor(
                 it.description,
                 CategoryType.entries[it.categoryId],
                 it.amount,
-                response.payers[it.payerId].firstName,
+                response.payers.find { user-> user.id == it.payerId }?.firstName ?: "",
                 it.phoneNumbersOfDebtors?.map { phoneNumber ->
                     response.payers.find { user -> user.number == phoneNumber } ?: User(id = -1, firstName = "", lastName = "", number = "")
                 }
@@ -65,5 +65,11 @@ class ExpensesRepositoryImpl @Inject constructor(
                 phoneNumbersOfDebtors = expense.debtors?.map { user -> user.number } ?: emptyList()
             )
         )
+    }
+
+    override suspend fun getTripPlannedExpenses(tripId: Int) = safeApiCall(Dispatchers.IO) {
+        expensesApiService.getTripPlannedExpenses(tripId).plannedExpenses.map {
+            CategoryType.entries[it.categoryId]
+        }
     }
 }
